@@ -8,7 +8,7 @@ public class ShipPlacement : MonoBehaviour
     [SerializeField] private LayerMask waterMask,shipMask;
     [SerializeField] Vector3 TouchPos;
     [SerializeField] private MeshRenderer GridRenderer;
-    [SerializeField] private Material gridMaterial, gridNullMaterial;
+    [SerializeField] private Material gridMaterial, gridNullMaterial, bbMaterial;
     private bool shipPlaced;
     private GameObject shipToMove, shipToPlace;
     private RaycastHit hit;
@@ -19,6 +19,7 @@ public class ShipPlacement : MonoBehaviour
     {
         shipToMove = Instantiate(ships[0], new Vector3(0, 0, 0), Quaternion.identity);
         shipToMove.SetActive(true);
+        
         shipToPlace = Instantiate(ships[0], new Vector3(0, 0, 0), Quaternion.identity);
         shipToPlace.SetActive(false);
     }
@@ -85,6 +86,5 @@ public class ShipPlacement : MonoBehaviour
             }
         }
     }
-
 
 }

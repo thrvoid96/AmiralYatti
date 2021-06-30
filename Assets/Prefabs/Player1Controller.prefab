@@ -53,5 +53,6 @@ MonoBehaviour:
   GridRenderer: {fileID: 0}
   gridMaterial: {fileID: 2100000, guid: b7bc419f7385b05458714c920c247951, type: 2}
   gridNullMaterial: {fileID: 2100000, guid: 81d34e6b707b63643a286bca55359c48, type: 2}
+  bbMaterial: {fileID: 3609018082110429662, guid: df0512d7f4e8ade44813a256fe3ae780, type: 3}
   ships:
-  - {fileID: 0}
+  - {fileID: 7390957954225062542, guid: e21d43dfbee2c5a43a07f884c77a15ab, type: 3}

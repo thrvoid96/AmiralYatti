@@ -10,6 +10,7 @@ public class CheckPlacement : MonoBehaviour
     {
         if (other.CompareTag("Compartment") || other.CompareTag("Obstacle"))
         {
+            Debug.LogError("Enter");
             GetComponent<MeshRenderer>().material = GreenMat;
             transform.GetChild(0).GetComponent<MeshRenderer>().material = RedMat;
             canPlace = false;
@@ -20,6 +21,7 @@ public class CheckPlacement : MonoBehaviour
     {
         if (other.CompareTag("Compartment") || other.CompareTag("Obstacle"))
         {
+            Debug.LogError("Exit");
             GetComponent<MeshRenderer>().material = RedMat;
             transform.GetChild(0).GetComponent<MeshRenderer>().material = GreenMat;
             canPlace = true;
