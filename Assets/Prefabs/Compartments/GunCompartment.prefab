@@ -93,8 +93,8 @@ GameObject:
   - component: {fileID: 8168480897902378407}
   - component: {fileID: 8168480897902378406}
   - component: {fileID: 1947853204420350630}
-  - component: {fileID: 8168480897902378405}
   - component: {fileID: 1967485339569386704}
+  - component: {fileID: 1526548927634362716}
   m_Layer: 6
   m_Name: GunCompartment
   m_TagString: Compartment
@@ -181,19 +181,6 @@ MonoBehaviour:
   GreenMat: {fileID: 2100000, guid: e9b6a941bd41c0346946591fc382bb9d, type: 2}
   RedMat: {fileID: 2100000, guid: 7c866ff24b46934418369ddecac5858e, type: 2}
   canPlace: 1
---- !u!65 &8168480897902378405
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8168480897902378404}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1.5, y: 1, z: 1.5}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!54 &1967485339569386704
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -210,3 +197,16 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!65 &1526548927634362716
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8168480897902378404}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.5, y: 1, z: 1.5}
+  m_Center: {x: 0, y: 0, z: 0}
