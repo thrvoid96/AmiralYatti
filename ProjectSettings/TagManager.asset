@@ -7,6 +7,9 @@ TagManager:
   - Obstacle
   - Ship
   - Compartment
+  - Battleship
+  - Cruiser
+  - Destroyer
   layers:
   - Default
   - TransparentFX

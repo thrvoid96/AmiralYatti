@@ -9,11 +9,10 @@ public class Player : PlayerBehaviours
 
     public LayerMask waterMask, shipMask;
     public GridSpawner gridSpawner;
-    public GameObject shipToMove, shipToPlace;
-    public List<GameObject> ships = new List<GameObject>();
+    public GameObject shipToMove, shipToPlace;    
 
     public int maxShipsToBePlaced;
-
+    public bool shipSelected;
     private void Update()
     {
         _stateMachine.Tick();
@@ -23,8 +22,6 @@ public class Player : PlayerBehaviours
     {
 
         var shipPlacement = new ShipPlacementState(this);
-
-
 
         //At(patrol, enemyIdle, PatrolCheck());
 
@@ -41,9 +38,6 @@ public class Player : PlayerBehaviours
 
     }
 
-    public GameObject InstantiateShip(int index)
-    {
-        return Instantiate(ships[index], new Vector3(0, 0, 0), Quaternion.identity);
-    }
+    
 
 }

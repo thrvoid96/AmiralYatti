@@ -17,7 +17,7 @@ public class ShipPlacementState : IState
   
     public void Tick()
     {
-        if (!shipPlaced)
+        if (!shipPlaced && _player.shipSelected)
         {
             MoveShipAround();
             PlaceShip();
@@ -30,17 +30,14 @@ public class ShipPlacementState : IState
 
     public void OnEnter()
     {
-        _player.shipToMove = _player.InstantiateShip(0);
-        _player.shipToMove.SetActive(true);
-
-        _player.shipToPlace = _player.InstantiateShip(0);
-        _player.shipToPlace.SetActive(false);
+        
     }
 
     public void OnExit()
     {
     }
 
+    // Move ships around if mouse to screen raycast is hitting a Water layer
     private void MoveShipAround()
     {
         TouchPos = Input.mousePosition;
@@ -57,33 +54,38 @@ public class ShipPlacementState : IState
         }
     }
 
+    // Place ship if right click. Make placement grid invisible
     private void PlaceShip()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(1))
         {
             _player.shipToPlace.transform.position = new Vector3(_player.shipToMove.transform.position.x, 0, _player.shipToMove.transform.position.z);
             _player.shipToMove.SetActive(false);
             _player.shipToPlace.SetActive(true);
             _player.gridSpawner.setVisibility(false);
             shipPlaced = true;
+            _player.shipSelected = false;
         }
     }
 
+    // Replace ship if mouse to screen raycast is hitting a Ship layer and player right clicks. Make grid visible.
     private void ReplaceShip()
     {
         TouchPos = Input.mousePosition;
         //TouchPos = Input.GetTouch(0).position;
+
         Ray ray = Camera.main.ScreenPointToRay(TouchPos);
 
         if (Physics.Raycast(ray, out hit, Mathf.Infinity, _player.shipMask))
         {
 
-            if (Input.GetMouseButtonDown(0))
+            if (Input.GetMouseButtonDown(1))
             {
                 _player.shipToMove.transform.position = new Vector3(_player.shipToPlace.transform.position.x, 1, _player.shipToPlace.transform.position.z);
                 _player.shipToMove.SetActive(true);
                 _player.shipToPlace.SetActive(false);
                 _player.gridSpawner.setVisibility(true);
+                _player.shipSelected = true;
                 shipPlaced = false;
 
             }
