@@ -188,7 +188,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d60dad9d11b8f1f46a0b1196056aee21, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _player: {fileID: 0}
 --- !u!222 &6215291099078545824
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -350,14 +349,14 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 2034997563869736378}
         m_TargetAssemblyTypeName: ShipSelectUI, Assembly-CSharp
-        m_MethodName: SelectBattleship
-        m_Mode: 1
+        m_MethodName: SelectShip
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: Battleship
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!1 &6215291099511420338
@@ -724,14 +723,14 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 2034997563869736378}
         m_TargetAssemblyTypeName: ShipSelectUI, Assembly-CSharp
-        m_MethodName: SelectDestroyer
-        m_Mode: 1
+        m_MethodName: SelectShip
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: Destroyer
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!1 &6215291100076150490
@@ -1127,13 +1126,13 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 2034997563869736378}
         m_TargetAssemblyTypeName: ShipSelectUI, Assembly-CSharp
-        m_MethodName: SelectCruiser
-        m_Mode: 1
+        m_MethodName: SelectShip
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: Cruiser
           m_BoolArgument: 0
         m_CallState: 2

@@ -11,12 +11,12 @@ GameObject:
   - component: {fileID: 2674792335850873450}
   - component: {fileID: 2674792335850873453}
   - component: {fileID: 2674792335850873452}
-  - component: {fileID: 5713565200826240364}
   - component: {fileID: 5696888678879505178}
   - component: {fileID: 654177757743627135}
-  m_Layer: 6
-  m_Name: FrontCompartment
-  m_TagString: Compartment
+  - component: {fileID: 990771984}
+  m_Layer: 9
+  m_Name: movPosDisplayer
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -85,21 +85,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &5713565200826240364
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2674792335850873454}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bc93f57a18500764bb7655db35a7fcfa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  GreenMat: {fileID: 2100000, guid: e9b6a941bd41c0346946591fc382bb9d, type: 2}
-  RedMat: {fileID: 2100000, guid: 7c866ff24b46934418369ddecac5858e, type: 2}
-  canPlace: 1
 --- !u!54 &5696888678879505178
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -127,8 +112,23 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.5, y: 1, z: 1.5}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 1.5, y: 10, z: 1.5}
+  m_Center: {x: 0, y: -5, z: 0}
+--- !u!114 &990771984
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2674792335850873454}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc93f57a18500764bb7655db35a7fcfa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GreenMat: {fileID: 2100000, guid: e9b6a941bd41c0346946591fc382bb9d, type: 2}
+  RedMat: {fileID: 2100000, guid: 7c866ff24b46934418369ddecac5858e, type: 2}
+  canPlace: 1
 --- !u!1 &8000152591047026615
 GameObject:
   m_ObjectHideFlags: 0
@@ -140,7 +140,7 @@ GameObject:
   - component: {fileID: 1265303884973093792}
   - component: {fileID: 5364513955474582618}
   - component: {fileID: 3195656833333608596}
-  m_Layer: 6
+  m_Layer: 9
   m_Name: TopVisual
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -155,8 +155,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8000152591047026615}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.007, y: 0.52, z: -0.0066}
-  m_LocalScale: {x: 0.95, y: 0.1, z: 0.95}
+  m_LocalPosition: {x: 0, y: 0.5, z: 0}
+  m_LocalScale: {x: 0.86, y: 0.1, z: 0.86}
   m_Children: []
   m_Father: {fileID: 2674792335850873450}
   m_RootOrder: 0
