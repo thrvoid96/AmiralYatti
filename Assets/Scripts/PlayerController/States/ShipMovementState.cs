@@ -7,17 +7,19 @@ using ShipScripts;
 public class ShipMovementState : IState
 {
     private Player _player;
-    private Ship ship;
+    private Ship _ship;
+    private LineRenderer _lineRenderer;
     private NavMeshAgent _navMeshAgent;
 
     private RaycastHit hit;
     private Vector3 TouchPos;
     private bool canMove;
 
-    public ShipMovementState(Player player, NavMeshAgent navMeshAgent)
+    public ShipMovementState(Player player, NavMeshAgent navMeshAgent, LineRenderer lineRenderer)
     {
         _player = player;
         _navMeshAgent = navMeshAgent;
+        _lineRenderer = lineRenderer;
     }
 
     public void OnEnter()
@@ -46,7 +48,8 @@ public class ShipMovementState : IState
             }
             else
             {
-                RotateTowardsDisplayerWhenCloseToDestination();
+                DrawPath(_navMeshAgent.path);
+                RotateTowardsFinalPositionWhenCloseToDestination();
             }
         }
     }
@@ -63,13 +66,15 @@ public class ShipMovementState : IState
             if (Input.GetMouseButtonDown(2))
             {
                 _navMeshAgent = hit.collider.gameObject.GetComponent<NavMeshAgent>();
-                ship = hit.collider.gameObject.GetComponent<Ship>();
+                _ship = hit.collider.gameObject.GetComponent<Ship>();
+                _lineRenderer = hit.collider.gameObject.GetComponent<LineRenderer>();
+
                 _navMeshAgent.updateRotation=false;
                 _player.gridSpawner.setVisibility(true);
                 _player.movSpotObject.SetActive(true);
                 canMove = true;
               
-                for(int i = 0; i < ship.compartments.Count-1; i++)
+                for(int i = 0; i < _ship.compartments.Count-1; i++)
                 {
                     _player.moveSpotDisplayers[i].SetActive(true);
                 }
@@ -86,47 +91,44 @@ public class ShipMovementState : IState
         
     }
 
-    private void RotateTowardsDisplayerWhenCloseToDestination()
+    private void RotateTowardsFinalPositionWhenCloseToDestination()
     {
 
         if (_navMeshAgent.remainingDistance < 1f)
         {
             _navMeshAgent.updateRotation = false;
 
-            if (ship.transform.rotation.eulerAngles.y < 0)
+            if (_ship.transform.rotation.eulerAngles.y < 180)
             {
-                if (ship.transform.rotation.eulerAngles.y < _player.movSpotObject.transform.rotation.eulerAngles.y)
+                if (_ship.transform.rotation.eulerAngles.y < _player.movSpotObject.transform.rotation.eulerAngles.y)
                 {
-                    ship.gameObject.transform.Rotate(0, -0.5f, 0);
-                    Debug.LogError("here1");
-
+                    Debug.LogError("Here1");
+                    _ship.gameObject.transform.Rotate(0, 0.5f, 0);
                 }
                 else
                 {
-                    ship.gameObject.transform.Rotate(0, 0.5f, 0);
-                    Debug.LogError("here2");
+                    Debug.LogError("Here2");
+                    _ship.gameObject.transform.Rotate(0, -0.5f, 0);
                 }
             }
-            else if(ship.transform.rotation.eulerAngles.y > 0)
+            else if(_ship.transform.rotation.eulerAngles.y > 180)
             {
-                if (ship.transform.rotation.eulerAngles.y < _player.movSpotObject.transform.rotation.eulerAngles.y)
+                if (_ship.transform.rotation.eulerAngles.y < _player.movSpotObject.transform.rotation.eulerAngles.y)
                 {
-                    ship.gameObject.transform.Rotate(0, 0.5f, 0);
-                    Debug.LogError("here3");
-
+                    Debug.LogError("Here3");
+                    _ship.gameObject.transform.Rotate(0, -0.5f, 0);
                 }
                 else
                 {
-                    ship.gameObject.transform.Rotate(0, -0.5f, 0);
-                    Debug.LogError("here4");
+                    Debug.LogError("Here4");
+                    _ship.gameObject.transform.Rotate(0, 0.5f, 0);
                 }
             }
 
-            if (Mathf.Abs(ship.transform.rotation.eulerAngles.y - _player.movSpotObject.transform.rotation.eulerAngles.y) < 1f)
+            if (Mathf.Abs(_ship.transform.rotation.eulerAngles.y - _player.movSpotObject.transform.rotation.eulerAngles.y) < 1f)
             {              
-                ship.transform.rotation = Quaternion.Euler(_player.movSpotObject.transform.rotation.eulerAngles.x, _player.movSpotObject.transform.rotation.eulerAngles.y, _player.movSpotObject.transform.rotation.eulerAngles.z);
+                _ship.transform.rotation = Quaternion.Euler(_player.movSpotObject.transform.rotation.eulerAngles.x, _player.movSpotObject.transform.rotation.eulerAngles.y, _player.movSpotObject.transform.rotation.eulerAngles.z);
                 _player.movSpotObject.transform.rotation = Quaternion.Euler(0, 0, 0);
-                Debug.LogError("here5");
                 _navMeshAgent = null;
             }
         }
@@ -145,12 +147,17 @@ public class ShipMovementState : IState
             int posZ = (int)Mathf.Round(hit.point.z);
 
             _player.movSpotObject.transform.position = new Vector3(posX, 1, posZ);
+            _navMeshAgent.destination = new Vector3(_player.movSpotObject.transform.position.x, 1, _player.movSpotObject.transform.position.z);
+            _navMeshAgent.speed = 0f;
+            _navMeshAgent.updateRotation = false;
+
+            DrawPath(_navMeshAgent.path);
 
             if (Input.GetMouseButtonDown(1))
             {
-                _navMeshAgent.destination= new Vector3(_player.movSpotObject.transform.position.x, 1, _player.movSpotObject.transform.position.z);
-
+                
                 _navMeshAgent.updateRotation = true;
+                _navMeshAgent.speed = _ship.speed;
 
                 _player.gridSpawner.setVisibility(false);
                
@@ -158,11 +165,26 @@ public class ShipMovementState : IState
 
                 canMove = false;
 
-                for (int i = 0; i < ship.compartments.Count - 1; i++)
+                for (int i = 0; i < _ship.compartments.Count - 1; i++)
                 {
                     _player.moveSpotDisplayers[i].SetActive(false);
                 }
             }
         }
     }
+
+    private void DrawPath(NavMeshPath navMeshPath)
+    {
+        if (navMeshPath.corners.Length < 2) //if the path has 1 or no corners, there is no need
+            return;
+
+        _lineRenderer.positionCount = navMeshPath.corners.Length; //set the array of positions to the amount of corners
+
+        for (var i = 1; i < navMeshPath.corners.Length; i++)
+        {
+            _lineRenderer.SetPosition(0, _ship.transform.position);
+            _lineRenderer.SetPosition(i, navMeshPath.corners[i]); //go through each corner and set that to the line renderer's position
+        }
+    }
+
 }

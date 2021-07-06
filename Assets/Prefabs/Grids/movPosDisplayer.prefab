@@ -126,7 +126,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc93f57a18500764bb7655db35a7fcfa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GreenMat: {fileID: 2100000, guid: e9b6a941bd41c0346946591fc382bb9d, type: 2}
+  GreenMat: {fileID: 2100000, guid: 635c8573ddd06e04483fb617d6455f4c, type: 2}
   RedMat: {fileID: 2100000, guid: 7c866ff24b46934418369ddecac5858e, type: 2}
   canPlace: 1
 --- !u!1 &8000152591047026615

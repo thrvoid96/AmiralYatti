@@ -10,6 +10,7 @@ namespace ShipScripts
     {
         public enum ShipType {Battleship,Cruiser,Destroyer}
         public ShipType shipType;
+        public float speed = 3.5f;
 
         public List<Compartment> compartments = new List<Compartment>();
 

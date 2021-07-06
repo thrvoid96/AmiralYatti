@@ -9,6 +9,7 @@ namespace PlayerScripts
     public abstract class PlayerBehaviours : MonoBehaviour
     {
         protected StateMachine _stateMachine;
+        protected LineRenderer lineRenderer;
         protected Player player;
         protected NavMeshAgent navMeshAgent;
         public LayerMask waterMask, shipMask;
