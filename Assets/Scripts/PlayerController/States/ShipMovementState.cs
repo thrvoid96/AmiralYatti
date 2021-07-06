@@ -98,7 +98,6 @@ public class ShipMovementState : IState
         if (_navMeshAgent.remainingDistance < 1f)
         {
             _navMeshAgent.updateRotation = false;
-            Debug.LogError(_player.movSpotObject.transform.rotation.eulerAngles.y);
 
             if (Mathf.Abs(_ship.transform.rotation.eulerAngles.y - _player.movSpotObject.transform.rotation.eulerAngles.y) > 1f)
             {
@@ -139,7 +138,7 @@ public class ShipMovementState : IState
                 {
                     if (_player.movSpotObject.transform.rotation.eulerAngles.y <= 90)
                     {
-                        _ship.gameObject.transform.Rotate(0, 0.5f, 0);
+                        _ship.gameObject.transform.Rotate(0, -0.5f, 0);
                     }
                     else if (_player.movSpotObject.transform.rotation.eulerAngles.y <= 180)
                     {
@@ -154,7 +153,7 @@ public class ShipMovementState : IState
                     }
                     else if (_player.movSpotObject.transform.rotation.eulerAngles.y <= 270)
                     {
-                        _ship.gameObject.transform.Rotate(0, -0.5f, 0);
+                        _ship.gameObject.transform.Rotate(0, 0.5f, 0);
                     }
                     else
                     {
