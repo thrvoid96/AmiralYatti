@@ -18,6 +18,7 @@ public class Player : PlayerBehaviours
 
         var shipPlacement = new ShipPlacementState(this);
         var shipMovement = new ShipMovementState(this, navMeshAgent, lineRenderer);
+        var combat = new CombatState(this);
 
         //At(patrol, enemyIdle, PatrolCheck());
 

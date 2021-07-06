@@ -87,6 +87,7 @@ public class ShipMovementState : IState
         if (Input.GetKeyDown(KeyCode.R))
         {
         _player.movSpotObject.transform.Rotate(0, 90, 0);
+        Debug.LogError(_player.movSpotObject.transform.rotation.eulerAngles.y);
         }
         
     }
@@ -97,35 +98,144 @@ public class ShipMovementState : IState
         if (_navMeshAgent.remainingDistance < 1f)
         {
             _navMeshAgent.updateRotation = false;
+            Debug.LogError(_player.movSpotObject.transform.rotation.eulerAngles.y);
 
-            if (_ship.transform.rotation.eulerAngles.y < 180)
+            if (Mathf.Abs(_ship.transform.rotation.eulerAngles.y - _player.movSpotObject.transform.rotation.eulerAngles.y) > 1f)
             {
-                if (_ship.transform.rotation.eulerAngles.y < _player.movSpotObject.transform.rotation.eulerAngles.y)
+                if (_ship.transform.rotation.eulerAngles.y <= 90)
                 {
-                    Debug.LogError("Here1");
-                    _ship.gameObject.transform.Rotate(0, 0.5f, 0);
+                    if (_player.movSpotObject.transform.rotation.eulerAngles.y <= 90)
+                    {
+                        if (_player.movSpotObject.transform.rotation.eulerAngles.y < _ship.transform.rotation.eulerAngles.y)
+                        {
+                            _ship.gameObject.transform.Rotate(0, -0.5f, 0);
+                        }
+                        else
+                        {
+                            _ship.gameObject.transform.Rotate(0, 0.5f, 0);
+                        }                           
+                    }
+                    else if (_player.movSpotObject.transform.rotation.eulerAngles.y <= 180)
+                    {
+                        _ship.gameObject.transform.Rotate(0, 0.5f, 0);
+                    } 
+                    else if (_player.movSpotObject.transform.rotation.eulerAngles.y <= 270)
+                    {
+                        if (_player.movSpotObject.transform.rotation.eulerAngles.y < _ship.transform.rotation.eulerAngles.y + 180)
+                        {
+                            _ship.gameObject.transform.Rotate(0, 0.5f, 0);
+                        }
+                        else
+                        {
+                            _ship.gameObject.transform.Rotate(0, -0.5f, 0);
+                        }
+                    }
+                    else
+                    {
+                        _ship.gameObject.transform.Rotate(0, -0.5f, 0);
+                    }
+                }
+                else if (_ship.transform.rotation.eulerAngles.y <= 180)
+                {
+                    if (_player.movSpotObject.transform.rotation.eulerAngles.y <= 90)
+                    {
+                        _ship.gameObject.transform.Rotate(0, 0.5f, 0);
+                    }
+                    else if (_player.movSpotObject.transform.rotation.eulerAngles.y <= 180)
+                    {
+                        if (_player.movSpotObject.transform.rotation.eulerAngles.y < _ship.transform.rotation.eulerAngles.y)
+                        {
+                            _ship.gameObject.transform.Rotate(0, -0.5f, 0);
+                        }
+                        else
+                        {
+                            _ship.gameObject.transform.Rotate(0, 0.5f, 0);
+                        }
+                    }
+                    else if (_player.movSpotObject.transform.rotation.eulerAngles.y <= 270)
+                    {
+                        _ship.gameObject.transform.Rotate(0, -0.5f, 0);
+                    }
+                    else
+                    {
+                        if (_player.movSpotObject.transform.rotation.eulerAngles.y < _ship.transform.rotation.eulerAngles.y + 180)
+                        {
+                            _ship.gameObject.transform.Rotate(0, 0.5f, 0);
+                        }
+                        else
+                        {
+                            _ship.gameObject.transform.Rotate(0, -0.5f, 0);
+                        }
+                    }
+                }
+                else if (_ship.transform.rotation.eulerAngles.y <= 270)
+                {
+                    if (_player.movSpotObject.transform.rotation.eulerAngles.y <= 90)
+                    {
+                        if (_player.movSpotObject.transform.rotation.eulerAngles.y < _ship.transform.rotation.eulerAngles.y)
+                        {
+                            _ship.gameObject.transform.Rotate(0, 0.5f, 0);
+                        }
+                        else
+                        {
+                            _ship.gameObject.transform.Rotate(0, -0.5f, 0);
+                        }
+                    }
+                    else if (_player.movSpotObject.transform.rotation.eulerAngles.y <= 180)
+                    {
+                        _ship.gameObject.transform.Rotate(0, -0.5f, 0);
+                    }
+                    else if (_player.movSpotObject.transform.rotation.eulerAngles.y <= 270)
+                    {
+                        if (_player.movSpotObject.transform.rotation.eulerAngles.y < _ship.transform.rotation.eulerAngles.y - 180)
+                        {
+                            _ship.gameObject.transform.Rotate(0, -0.5f, 0);
+                        }
+                        else
+                        {
+                            _ship.gameObject.transform.Rotate(0, 0.5f, 0);
+                        }
+                    }
+                    else
+                    {
+                        _ship.gameObject.transform.Rotate(0, 0.5f, 0);
+                    }
                 }
                 else
                 {
-                    Debug.LogError("Here2");
-                    _ship.gameObject.transform.Rotate(0, -0.5f, 0);
+                    if (_player.movSpotObject.transform.rotation.eulerAngles.y <= 90)
+                    {
+                        _ship.gameObject.transform.Rotate(0, 0.5f, 0);
+                    }
+                    else if (_player.movSpotObject.transform.rotation.eulerAngles.y <= 180)
+                    {
+                        if (_player.movSpotObject.transform.rotation.eulerAngles.y < _ship.transform.rotation.eulerAngles.y)
+                        {
+                            _ship.gameObject.transform.Rotate(0, 0.5f, 0);
+                        }
+                        else
+                        {
+                            _ship.gameObject.transform.Rotate(0, -0.5f, 0);
+                        }
+                    }
+                    else if (_player.movSpotObject.transform.rotation.eulerAngles.y <= 270)
+                    {
+                        _ship.gameObject.transform.Rotate(0, -0.5f, 0);
+                    }
+                    else
+                    {
+                        if (_player.movSpotObject.transform.rotation.eulerAngles.y < _ship.transform.rotation.eulerAngles.y + 180)
+                        {
+                            _ship.gameObject.transform.Rotate(0, -0.5f, 0);
+                        }
+                        else
+                        {
+                            _ship.gameObject.transform.Rotate(0, 0.5f, 0);
+                        }
+                    }
                 }
             }
-            else if(_ship.transform.rotation.eulerAngles.y > 180)
-            {
-                if (_ship.transform.rotation.eulerAngles.y < _player.movSpotObject.transform.rotation.eulerAngles.y)
-                {
-                    Debug.LogError("Here3");
-                    _ship.gameObject.transform.Rotate(0, -0.5f, 0);
-                }
-                else
-                {
-                    Debug.LogError("Here4");
-                    _ship.gameObject.transform.Rotate(0, 0.5f, 0);
-                }
-            }
-
-            if (Mathf.Abs(_ship.transform.rotation.eulerAngles.y - _player.movSpotObject.transform.rotation.eulerAngles.y) < 1f)
+            else           
             {              
                 _ship.transform.rotation = Quaternion.Euler(_player.movSpotObject.transform.rotation.eulerAngles.x, _player.movSpotObject.transform.rotation.eulerAngles.y, _player.movSpotObject.transform.rotation.eulerAngles.z);
                 _player.movSpotObject.transform.rotation = Quaternion.Euler(0, 0, 0);
