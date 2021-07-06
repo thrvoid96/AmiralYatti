@@ -49,7 +49,7 @@ public class ShipMovementState : IState
             else
             {
                 DrawPath(_navMeshAgent.path);
-                RotateTowardsFinalPositionWhenCloseToDestination();
+                RotateTowardsFinalPositionWhenCloseToDestination(_ship.rotationSpeed);
             }
         }
     }
@@ -92,154 +92,107 @@ public class ShipMovementState : IState
         
     }
 
-    private void RotateTowardsFinalPositionWhenCloseToDestination()
+    //When getting close to destination, rotate the ship towards finalDestination
+    private void RotateTowardsFinalPositionWhenCloseToDestination(float rotationSpeed)
     {
-
+        //Check distance
         if (_navMeshAgent.remainingDistance < 1f)
         {
             _navMeshAgent.updateRotation = false;
 
+            //If the rotations are not close enough, keep rotating
             if (Mathf.Abs(_ship.transform.rotation.eulerAngles.y - _player.movSpotObject.transform.rotation.eulerAngles.y) > 1f)
             {
+                //Case where the ship is looking up right
                 if (_ship.transform.rotation.eulerAngles.y <= 90)
                 {
-                    if (_player.movSpotObject.transform.rotation.eulerAngles.y <= 90)
-                    {
-                        if (_player.movSpotObject.transform.rotation.eulerAngles.y < _ship.transform.rotation.eulerAngles.y)
-                        {
-                            _ship.gameObject.transform.Rotate(0, -0.5f, 0);
-                        }
-                        else
-                        {
-                            _ship.gameObject.transform.Rotate(0, 0.5f, 0);
-                        }                           
-                    }
-                    else if (_player.movSpotObject.transform.rotation.eulerAngles.y <= 180)
-                    {
-                        _ship.gameObject.transform.Rotate(0, 0.5f, 0);
-                    } 
-                    else if (_player.movSpotObject.transform.rotation.eulerAngles.y <= 270)
-                    {
-                        if (_player.movSpotObject.transform.rotation.eulerAngles.y < _ship.transform.rotation.eulerAngles.y + 180)
-                        {
-                            _ship.gameObject.transform.Rotate(0, 0.5f, 0);
-                        }
-                        else
-                        {
-                            _ship.gameObject.transform.Rotate(0, -0.5f, 0);
-                        }
-                    }
-                    else
-                    {
-                        _ship.gameObject.transform.Rotate(0, -0.5f, 0);
-                    }
+                    RotateCase90270(rotationSpeed);
                 }
+                //Case where the ship is looking down right
                 else if (_ship.transform.rotation.eulerAngles.y <= 180)
                 {
-                    if (_player.movSpotObject.transform.rotation.eulerAngles.y <= 90)
-                    {
-                        _ship.gameObject.transform.Rotate(0, -0.5f, 0);
-                    }
-                    else if (_player.movSpotObject.transform.rotation.eulerAngles.y <= 180)
-                    {
-                        if (_player.movSpotObject.transform.rotation.eulerAngles.y < _ship.transform.rotation.eulerAngles.y)
-                        {
-                            _ship.gameObject.transform.Rotate(0, -0.5f, 0);
-                        }
-                        else
-                        {
-                            _ship.gameObject.transform.Rotate(0, 0.5f, 0);
-                        }
-                    }
-                    else if (_player.movSpotObject.transform.rotation.eulerAngles.y <= 270)
-                    {
-                        _ship.gameObject.transform.Rotate(0, 0.5f, 0);
-                    }
-                    else
-                    {
-                        if (_player.movSpotObject.transform.rotation.eulerAngles.y < _ship.transform.rotation.eulerAngles.y + 180)
-                        {
-                            _ship.gameObject.transform.Rotate(0, 0.5f, 0);
-                        }
-                        else
-                        {
-                            _ship.gameObject.transform.Rotate(0, -0.5f, 0);
-                        }
-                    }
+                    RotateCase180360(rotationSpeed);
                 }
+                //Case where the ship is looking down left
                 else if (_ship.transform.rotation.eulerAngles.y <= 270)
                 {
-                    if (_player.movSpotObject.transform.rotation.eulerAngles.y <= 90)
-                    {
-                        if (_player.movSpotObject.transform.rotation.eulerAngles.y < _ship.transform.rotation.eulerAngles.y)
-                        {
-                            _ship.gameObject.transform.Rotate(0, 0.5f, 0);
-                        }
-                        else
-                        {
-                            _ship.gameObject.transform.Rotate(0, -0.5f, 0);
-                        }
-                    }
-                    else if (_player.movSpotObject.transform.rotation.eulerAngles.y <= 180)
-                    {
-                        _ship.gameObject.transform.Rotate(0, -0.5f, 0);
-                    }
-                    else if (_player.movSpotObject.transform.rotation.eulerAngles.y <= 270)
-                    {
-                        if (_player.movSpotObject.transform.rotation.eulerAngles.y < _ship.transform.rotation.eulerAngles.y - 180)
-                        {
-                            _ship.gameObject.transform.Rotate(0, -0.5f, 0);
-                        }
-                        else
-                        {
-                            _ship.gameObject.transform.Rotate(0, 0.5f, 0);
-                        }
-                    }
-                    else
-                    {
-                        _ship.gameObject.transform.Rotate(0, 0.5f, 0);
-                    }
+                    RotateCase90270(-rotationSpeed);
                 }
+                //Case where the ship is looking up left
                 else
                 {
-                    if (_player.movSpotObject.transform.rotation.eulerAngles.y <= 90)
-                    {
-                        _ship.gameObject.transform.Rotate(0, 0.5f, 0);
-                    }
-                    else if (_player.movSpotObject.transform.rotation.eulerAngles.y <= 180)
-                    {
-                        if (_player.movSpotObject.transform.rotation.eulerAngles.y < _ship.transform.rotation.eulerAngles.y)
-                        {
-                            _ship.gameObject.transform.Rotate(0, 0.5f, 0);
-                        }
-                        else
-                        {
-                            _ship.gameObject.transform.Rotate(0, -0.5f, 0);
-                        }
-                    }
-                    else if (_player.movSpotObject.transform.rotation.eulerAngles.y <= 270)
-                    {
-                        _ship.gameObject.transform.Rotate(0, -0.5f, 0);
-                    }
-                    else
-                    {
-                        if (_player.movSpotObject.transform.rotation.eulerAngles.y < _ship.transform.rotation.eulerAngles.y + 180)
-                        {
-                            _ship.gameObject.transform.Rotate(0, -0.5f, 0);
-                        }
-                        else
-                        {
-                            _ship.gameObject.transform.Rotate(0, 0.5f, 0);
-                        }
-                    }
+                    RotateCase180360(-rotationSpeed);
                 }
             }
+            //If the ship has almost rotated completely, finish rotation
             else           
             {              
                 _ship.transform.rotation = Quaternion.Euler(_player.movSpotObject.transform.rotation.eulerAngles.x, _player.movSpotObject.transform.rotation.eulerAngles.y, _player.movSpotObject.transform.rotation.eulerAngles.z);
                 _player.movSpotObject.transform.rotation = Quaternion.Euler(0, 0, 0);
                 _navMeshAgent = null;
             }
+        }
+    }
+
+    private void RotateCase90270(float rotSpeed)
+    {
+        //Case where the final position is in up right
+        if (_player.movSpotObject.transform.rotation.eulerAngles.y <= 90)
+        {
+            sameAngleSpecialCase(rotSpeed, 0);
+        }
+        //Case where the final position is in down right
+        else if (_player.movSpotObject.transform.rotation.eulerAngles.y <= 180)
+        {
+            _ship.gameObject.transform.Rotate(0, rotSpeed, 0);
+        }
+        //Case where the final position is in down left
+        else if (_player.movSpotObject.transform.rotation.eulerAngles.y <= 270)
+        {
+
+            sameAngleSpecialCase(-rotSpeed, 180 * rotSpeed / Mathf.Abs(rotSpeed));
+        }
+        //Case where the final position is in up left
+        else
+        {
+            _ship.gameObject.transform.Rotate(0, -rotSpeed, 0);
+        }
+    }
+
+    private void RotateCase180360(float rotSpeed)
+    {
+        //Case where the final position is in up right
+        if (_player.movSpotObject.transform.rotation.eulerAngles.y <= 90)
+        {
+            _ship.gameObject.transform.Rotate(0, -rotSpeed, 0);
+        }
+        //Case where the final position is in down right
+        else if (_player.movSpotObject.transform.rotation.eulerAngles.y <= 180)
+        {
+            sameAngleSpecialCase(rotSpeed, 0);
+        }
+        //Case where the final position is in down left
+        else if (_player.movSpotObject.transform.rotation.eulerAngles.y <= 270)
+        {
+            _ship.gameObject.transform.Rotate(0, rotSpeed, 0);
+        }
+        //Case where the final position is in up left
+        else
+        {
+            sameAngleSpecialCase(-rotSpeed,180 * rotSpeed / Mathf.Abs(rotSpeed));
+        }
+    }
+
+    private void sameAngleSpecialCase(float rotSpd, float additive)
+    {
+        //Special fix where the ship and the final position rotation is in the same area
+        if (_player.movSpotObject.transform.rotation.eulerAngles.y < _ship.transform.rotation.eulerAngles.y + additive)
+        {
+            _ship.gameObject.transform.Rotate(0, -rotSpd, 0);
+        }
+        else
+        {
+            _ship.gameObject.transform.Rotate(0, rotSpd, 0);
         }
     }
 
