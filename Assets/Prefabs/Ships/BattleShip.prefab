@@ -69,7 +69,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 112
+  m_Constraints: 0
   m_CollisionDetection: 0
 --- !u!195 &1998134237
 NavMeshAgent:
@@ -121,8 +121,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 750c45fecdd9a6848b18d37e5a060d5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  shipType: 0
   compartments: []
-  shipName: Battleship
 --- !u!1001 &159221579261344088
 PrefabInstance:
   m_ObjectHideFlags: 0

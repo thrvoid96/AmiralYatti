@@ -50,8 +50,8 @@ namespace PlayerScripts
         {
             for(int i=1; i <= 3; i++)
             {
-                moveSpotDisplayers.Add(Instantiate(movSpotObject, new Vector3(movSpotObject.transform.position.x + i, movSpotObject.transform.position.y, movSpotObject.transform.position.z), Quaternion.identity, movSpotObject.transform));
-                moveSpotDisplayers.Add(Instantiate(movSpotObject, new Vector3(movSpotObject.transform.position.x - i, movSpotObject.transform.position.y, movSpotObject.transform.position.z), Quaternion.identity, movSpotObject.transform));
+                moveSpotDisplayers.Add(Instantiate(movSpotObject, new Vector3(movSpotObject.transform.position.x , movSpotObject.transform.position.y, movSpotObject.transform.position.z + i), Quaternion.identity, movSpotObject.transform));
+                moveSpotDisplayers.Add(Instantiate(movSpotObject, new Vector3(movSpotObject.transform.position.x , movSpotObject.transform.position.y, movSpotObject.transform.position.z - i), Quaternion.identity, movSpotObject.transform));
             }
 
             for (int i = 0; i < moveSpotDisplayers.Count; i++)
