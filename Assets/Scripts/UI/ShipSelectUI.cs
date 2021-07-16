@@ -28,8 +28,6 @@ public class ShipSelectUI : MonoBehaviour
         _player.shipToPlace = allShips[1];
         _player.shipToPlace.SetActive(false);
 
-        _player.shipSelected = true;
-
         allShips.Clear();
     }
 

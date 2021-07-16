@@ -25,7 +25,6 @@ public class ShipMovementState : IState
     public void OnEnter()
     {
         _player.gridSpawner.setVisibility(false);
-        _player.movSpotObject.SetActive(false);
     }
 
     public void OnExit()
@@ -66,6 +65,7 @@ public class ShipMovementState : IState
             if (Input.GetMouseButtonDown(2))
             {
                 _navMeshAgent = hit.collider.gameObject.GetComponent<NavMeshAgent>();
+                _navMeshAgent.enabled = true;
                 _ship = hit.collider.gameObject.GetComponent<Ship>();
                 _lineRenderer = hit.collider.gameObject.GetComponent<LineRenderer>();
 
@@ -208,8 +208,8 @@ public class ShipMovementState : IState
             int posX = (int)Mathf.Round(hit.point.x);
             int posZ = (int)Mathf.Round(hit.point.z);
 
-            _player.movSpotObject.transform.position = new Vector3(posX, 1, posZ);
-            _navMeshAgent.destination = new Vector3(_player.movSpotObject.transform.position.x, 1, _player.movSpotObject.transform.position.z);
+            _player.movSpotObject.transform.position = new Vector3(posX, 0, posZ);
+            _navMeshAgent.destination = new Vector3(_player.movSpotObject.transform.position.x, 0, _player.movSpotObject.transform.position.z);
             _navMeshAgent.speed = 0f;
             _navMeshAgent.updateRotation = false;
 

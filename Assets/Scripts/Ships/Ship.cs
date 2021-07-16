@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using CompartmentScripts;
 using System;
+using UnityEngine.AI;
 
 namespace ShipScripts
 {
@@ -18,8 +19,10 @@ namespace ShipScripts
         protected virtual void Awake()
         {
             var list = gameObject.GetComponentsInChildren<Compartment>();
+            GetComponent<NavMeshAgent>().enabled = false;
 
-            for(int i=0; i < list.Length; i++)
+
+            for (int i=0; i < list.Length; i++)
             {
                 compartments.Add(list[i]);
             }            

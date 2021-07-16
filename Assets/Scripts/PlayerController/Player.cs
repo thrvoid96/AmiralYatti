@@ -7,7 +7,7 @@ using PlayerScripts;
 public class Player : PlayerBehaviours
 {
 
-    
+   
     private void Update()
     {
         _stateMachine.Tick();
@@ -15,6 +15,8 @@ public class Player : PlayerBehaviours
 
     private void Start()
     {
+        movSpotObject.SetActive(false);
+        fireSpotObject.SetActive(false);
 
         var shipPlacement = new ShipPlacementState(this);
         var shipMovement = new ShipMovementState(this, navMeshAgent, lineRenderer);
@@ -28,7 +30,7 @@ public class Player : PlayerBehaviours
         void At(IState from, IState to, Func<bool> condition) => _stateMachine.AddTransition(from, to, condition);
 
         //_stateMachine.SetState(shipPlacement);
-        _stateMachine.SetState(shipMovement);
+        _stateMachine.SetState(combat);
 
         //Func<bool> IdleDelay() => () => enemyIdle.idleTime >= 3f;
 

@@ -14,23 +14,24 @@ namespace PlayerScripts
         protected NavMeshAgent navMeshAgent;
         public LayerMask waterMask, shipMask;
         public GridSpawner gridSpawner;
-        public GameObject shipToMove, shipToPlace, movSpotObject;
-
-        public int maxShipsToBePlaced;
-        public bool shipSelected;
+        public GameObject shipToMove, shipToPlace, movSpotObject, fireSpotObject,shell;
 
         public List<GameObject> ships = new List<GameObject>();
         public List<GameObject> moveSpotDisplayers = new List<GameObject>();
+        public List<GameObject> fireSpots = new List<GameObject>();
+        public List<GameObject> shells = new List<GameObject>();
         public List<GameObject> shipsOnScene = new List<GameObject>();
 
         protected virtual void Awake()
         {
             player = GetComponent<Player>();
 
-            _stateMachine = new StateMachine();
+            _stateMachine = new StateMachine();            
 
             InstantiateShips();
+            InstantiateShells();
             InstantiateDisplayer();
+            InstantiateFireSpots();
         }
 
         private void InstantiateShips()
@@ -49,10 +50,13 @@ namespace PlayerScripts
 
         private void InstantiateDisplayer()
         {
-            for(int i=1; i <= 3; i++)
+            movSpotObject = Instantiate(movSpotObject, new Vector3(0, 0, 0), Quaternion.identity);
+            var secondObj = Instantiate(movSpotObject, new Vector3(0, 0, 0), Quaternion.identity);
+
+            for (int i=1; i <= 3; i++)
             {
-                moveSpotDisplayers.Add(Instantiate(movSpotObject, new Vector3(movSpotObject.transform.position.x , movSpotObject.transform.position.y, movSpotObject.transform.position.z + i), Quaternion.identity, movSpotObject.transform));
-                moveSpotDisplayers.Add(Instantiate(movSpotObject, new Vector3(movSpotObject.transform.position.x , movSpotObject.transform.position.y, movSpotObject.transform.position.z - i), Quaternion.identity, movSpotObject.transform));
+                moveSpotDisplayers.Add(Instantiate(secondObj, new Vector3(movSpotObject.transform.position.x , movSpotObject.transform.position.y, movSpotObject.transform.position.z + i), Quaternion.identity, movSpotObject.transform));
+                moveSpotDisplayers.Add(Instantiate(secondObj, new Vector3(movSpotObject.transform.position.x , movSpotObject.transform.position.y, movSpotObject.transform.position.z - i), Quaternion.identity, movSpotObject.transform));
             }
 
             for (int i = 0; i < moveSpotDisplayers.Count; i++)
@@ -60,6 +64,40 @@ namespace PlayerScripts
                 moveSpotDisplayers[i].transform.localScale = new Vector3(1, 1, 1);
                 moveSpotDisplayers[i].SetActive(false);
             }
+
+            Destroy(secondObj);
+        }
+
+        private void InstantiateFireSpots()
+        {
+            fireSpotObject = Instantiate(fireSpotObject, new Vector3(0, 0.1f, 0), Quaternion.identity);
+            var secondObj = Instantiate(fireSpotObject, new Vector3(0, 0.1f, 0), Quaternion.identity);
+
+            for (int i = 1; i >= -1; i--)
+            {
+                for (int j = -1; j <= 1; j++)
+                {
+                    fireSpots.Add(Instantiate(secondObj, new Vector3(fireSpotObject.transform.position.x + j , fireSpotObject.transform.position.y, fireSpotObject.transform.position.z + i), Quaternion.identity, fireSpotObject.transform));
+                }
+            }
+
+            for (int i = 0; i < fireSpots.Count; i++)
+            {
+                fireSpots[i].transform.localScale = new Vector3(1, 1, 1);
+                fireSpots[i].SetActive(false);
+            }
+
+            Destroy(secondObj);
+        }
+
+        private void InstantiateShells()
+        {
+            for (int i = 0; i < 3; i++)
+            {
+                shells.Add(Instantiate(shell, new Vector3(0, 0, 0), Quaternion.identity));
+                shells[i].SetActive(false);
+            }
+
         }
     }
 }

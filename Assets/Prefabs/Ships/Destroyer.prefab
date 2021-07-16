@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 1636207584810237131}
   - component: {fileID: 4101516487911482317}
   - component: {fileID: 3541451958724099623}
+  - component: {fileID: 4917884731608356986}
   m_Layer: 8
   m_Name: Destroyer
   m_TagString: Destroyer
@@ -95,7 +96,31 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shipType: 2
+  speed: 3.5
+  rotationSpeed: 0.5
   compartments: []
+--- !u!195 &4917884731608356986
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7390957954225062542}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.7
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 60
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 1
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
 --- !u!1001 &932423379658431289
 PrefabInstance:
   m_ObjectHideFlags: 0

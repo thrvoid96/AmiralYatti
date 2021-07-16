@@ -17,7 +17,7 @@ public class ShipPlacementState : IState
   
     public void Tick()
     {
-        if (!shipPlaced && _player.shipSelected)
+        if (!shipPlaced)
         {
             MoveShipAround();
             PlaceShip();
@@ -64,7 +64,6 @@ public class ShipPlacementState : IState
             _player.shipToPlace.SetActive(true);
             _player.gridSpawner.setVisibility(false);
             shipPlaced = true;
-            _player.shipSelected = false;
         }
     }
 
@@ -85,7 +84,6 @@ public class ShipPlacementState : IState
                 _player.shipToMove.SetActive(true);
                 _player.shipToPlace.SetActive(false);
                 _player.gridSpawner.setVisibility(true);
-                _player.shipSelected = true;
                 shipPlaced = false;
 
             }
