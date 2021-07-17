@@ -4,5 +4,7 @@ using UnityEngine;
 using CompartmentScripts;
 public class GunCompartment : Compartment
 {
+    private Player player;
+
 
 }

@@ -88,18 +88,8 @@ public class CombatState : IState
                     _player.gridSpawner.setVisibility(false);
                     _player.fireSpotObject.SetActive(false);
 
-                    for(int i=0; i< _ship.compartments.Count; i++)
-                    {
-                        if (_ship.compartments[i].GetComponent<GunCompartment>())
-                        {                           
-                            _player.shells[shellCount].SetActive(true);
-                            _player.shells[shellCount].transform.position = _ship.compartments[i].transform.position;
-                            _player.shells[shellCount].GetComponent<Rigidbody>().velocity = _ship.transform.up * 10f;
-                            _player.shells[shellCount].GetComponent<Shell>().SetStartAndEnd(_ship.compartments[i].transform.position, _player.fireSpotObject.transform.position);
-                            shellCount++;
-                        }                      
-                    }
-                    shellCount = 0;
+                    _ship.FireGunsRandomly(_player.fireSpotObject.transform.position);
+
                     shipSelected = false;
                 }
             }
