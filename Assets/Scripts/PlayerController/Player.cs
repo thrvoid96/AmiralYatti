@@ -30,6 +30,7 @@ public class Player : PlayerBehaviours
         void At(IState from, IState to, Func<bool> condition) => _stateMachine.AddTransition(from, to, condition);
 
         //_stateMachine.SetState(shipPlacement);
+        //_stateMachine.SetState(shipMovement);
         _stateMachine.SetState(combat);
 
         //Func<bool> IdleDelay() => () => enemyIdle.idleTime >= 3f;

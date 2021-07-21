@@ -49,16 +49,15 @@ namespace ShipScripts
             currentHealth = maxHealth;
 
         }
-
+        //Fire guns in a random order with a delay in between. Because of same time collision bugs and making it not boring.
         public void FireGunsRandomly(Vector3 targetPosition)
         {
-            Randomize(gunCompartments.Count);
-            Debug.LogError(randomNumbers.Count);
+            RandomizeOrder(gunCompartments.Count);
 
             StartCoroutine(Fire(targetPosition));
         }
 
-        private void Randomize(int numberOfCompartments)
+        private void RandomizeOrder(int numberOfCompartments)
         {
             randomNumbers.Clear();
 
@@ -82,9 +81,8 @@ namespace ShipScripts
             {                
                 if (!gunCompartments[randomNumbers[iteration]].damaged && !gunCompartments[randomNumbers[iteration]].destroyed)
                 {
-                    player.shells[randomNumbers[iteration]].GetComponent<Shell>().SetStartAndEnd(gunCompartments[randomNumbers[iteration]].transform.position, targetPos);
-                    player.shells[randomNumbers[iteration]].GetComponent<Rigidbody>().velocity = gunCompartments[randomNumbers[iteration]].transform.up * 10f;
-                    player.shells[randomNumbers[iteration]].transform.position = gunCompartments[randomNumbers[iteration]].transform.position;
+                    gunCompartments[randomNumbers[iteration]].FireGun(gunCompartments[randomNumbers[iteration]].transform.position, targetPos);
+                   
                 }
 
                 yield return new WaitForSeconds(1f);

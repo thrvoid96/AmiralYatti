@@ -8,7 +8,7 @@ public class Shell : MonoBehaviour
     private Player player;
     private Rigidbody rb;
 
-    private Vector3 startPos, endPos;
+    private Vector3 endPos;
     public float speed;
 
     private void Awake()
@@ -19,15 +19,16 @@ public class Shell : MonoBehaviour
 
     public void SetStartAndEnd(Vector3 start, Vector3 end)
     {
-        gameObject.SetActive(true);
+        rb.velocity = transform.up * 10f;
 
-        startPos = start;
+        transform.position = start;
         endPos = end;
     }
     private void FixedUpdate()
     {
-        var distance = Vector3.Distance(startPos, endPos);
-        var direction = (endPos - startPos).normalized;
+        var distance = Vector3.Distance(transform.position, endPos);
+        var direction = (endPos - transform.position).normalized;
+
         rb.AddRelativeForce(speed * distance * Time.deltaTime * direction);
     }
 
@@ -37,8 +38,6 @@ public class Shell : MonoBehaviour
         {
             gameObject.SetActive(false);
             var compartment = collider.gameObject.GetComponent<Compartment>();
-
-
         }
         /*
         else if (collider.CompareTag("Water"))

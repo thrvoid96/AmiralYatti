@@ -226,3 +226,4 @@ MonoBehaviour:
   damaged: 0
   destroyed: 0
   maxHealth: 2
+  shellToFire: {fileID: 5818518139119912058, guid: 8955e386fd78c564cb60b286505b9b52, type: 3}

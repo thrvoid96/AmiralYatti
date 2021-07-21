@@ -87,7 +87,6 @@ public class ShipMovementState : IState
         if (Input.GetKeyDown(KeyCode.R))
         {
         _player.movSpotObject.transform.Rotate(0, 90, 0);
-        Debug.LogError(_player.movSpotObject.transform.rotation.eulerAngles.y);
         }
         
     }

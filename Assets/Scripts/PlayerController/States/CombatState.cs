@@ -6,14 +6,11 @@ using UnityEngine;
 public class CombatState : IState
 {
     private Player _player;
-    private LineRenderer _firePosLineRenderer;
     private Ship _ship;
     private RaycastHit hit;
     private Vector3 TouchPos;
 
     private bool shipSelected;
-    private int lineSegment = 100;
-    private int shellCount;
 
     public CombatState(Player player)
     {
@@ -54,8 +51,6 @@ public class CombatState : IState
             if (Input.GetMouseButtonDown(2))
             {
                 _ship = hit.collider.gameObject.GetComponent<Ship>();
-                _firePosLineRenderer = _player.fireSpotObject.GetComponent<LineRenderer>();
-                _firePosLineRenderer.positionCount = lineSegment;
 
                 _player.gridSpawner.setVisibility(true);
                 _player.fireSpotObject.SetActive(true);
@@ -79,8 +74,6 @@ public class CombatState : IState
 
             _player.fireSpotObject.transform.position = new Vector3(posX, 0.1f, posZ);
                        
-            VisualizeTrajectory(_player.fireSpotObject.transform.position);
-
             if (Physics.Raycast(ray, out hit, Mathf.Infinity, _player.shipMask))
             {
                 if (Input.GetMouseButtonDown(0))
@@ -96,23 +89,6 @@ public class CombatState : IState
         }
     }
 
-    private void VisualizeTrajectory(Vector3 vo)
-    {
-        for (int i = 0; i < lineSegment; i++)
-        {
-                Vector3 pos = CalculatePosInTime(vo, i / (float)lineSegment);
-                _firePosLineRenderer.SetPosition(i, pos);
-        }
-    }
-
-    private Vector3 CalculatePosInTime(Vector3 vo, float time)
-    {
-        Vector3 result = _ship.transform.position + (vo * time);
-        float sY = (-0.5f * Mathf.Abs(Physics.gravity.y) * (time * time)) + (vo.y * time) + _ship.transform.position.y;
-
-        result.y = sY;
-
-        return result;
-    }
+ 
   
 }

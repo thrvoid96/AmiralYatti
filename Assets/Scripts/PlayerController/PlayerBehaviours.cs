@@ -14,12 +14,11 @@ namespace PlayerScripts
         protected NavMeshAgent navMeshAgent;
         public LayerMask waterMask, shipMask;
         public GridSpawner gridSpawner;
-        public GameObject shipToMove, shipToPlace, movSpotObject, fireSpotObject,shell;
+        public GameObject shipToMove, shipToPlace, movSpotObject, fireSpotObject;
 
         public List<GameObject> ships = new List<GameObject>();
         public List<GameObject> moveSpotDisplayers = new List<GameObject>();
         public List<GameObject> fireSpots = new List<GameObject>();
-        public List<GameObject> shells = new List<GameObject>();
         public List<GameObject> shipsOnScene = new List<GameObject>();
 
         protected virtual void Awake()
@@ -29,7 +28,6 @@ namespace PlayerScripts
             _stateMachine = new StateMachine();            
 
             InstantiateShips();
-            InstantiateShells();
             InstantiateDisplayer();
             InstantiateFireSpots();
         }
@@ -90,14 +88,5 @@ namespace PlayerScripts
             Destroy(secondObj);
         }
 
-        private void InstantiateShells()
-        {
-            for (int i = 0; i < 3; i++)
-            {
-                shells.Add(Instantiate(shell, new Vector3(0, 0, 0), Quaternion.identity));
-                shells[i].SetActive(false);
-            }
-
-        }
     }
 }
