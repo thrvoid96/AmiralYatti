@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using ShipScripts;
 using UnityEngine;
 
+//The state where you can aim the guns and shoot enemy ships. Firing range not implemented yet.
 public class CombatState : IState
 {
     private Player _player;
@@ -29,6 +30,8 @@ public class CombatState : IState
 
     public void Tick()
     {
+        //If no ship is selected, try and get component of a ship. If selection is done, start the aiming process
+
         if (!shipSelected)
         {
             GetComponents();

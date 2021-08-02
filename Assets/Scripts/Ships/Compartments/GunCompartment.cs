@@ -1,5 +1,8 @@
 using UnityEngine;
 using CompartmentScripts;
+
+//Script attached to GunCompartment gameobject. Controls the behaviours of this compartment on a ship.
+
 public class GunCompartment : Compartment
 {
     [SerializeField]private GameObject shellToFire;

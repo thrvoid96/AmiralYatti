@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//The state where you can select ships from the UI and place them on the grid.
 public class ShipPlacementState : IState
 {   
     private RaycastHit hit;
@@ -17,6 +18,8 @@ public class ShipPlacementState : IState
   
     public void Tick()
     {
+        //If the selected ship is not placed, you can move the ship around and try to place it. When placed, you can reclick ship to replace it.
+
         if (!shipPlaced)
         {
             MoveShipAround();

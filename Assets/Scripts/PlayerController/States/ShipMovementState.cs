@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.AI;
 using ShipScripts;
 
+//The state where you can move the ships from one grid point to another. Movement ranges not implemented yet.
 public class ShipMovementState : IState
 {
     private Player _player;

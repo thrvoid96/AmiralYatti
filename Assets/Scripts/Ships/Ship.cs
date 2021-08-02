@@ -5,6 +5,8 @@ using CompartmentScripts;
 using UnityEngine.AI;
 using System.Collections;
 
+//Script attached to any Ship type gameobject. Controls the all common behaviours between ships.
+
 namespace ShipScripts
 {
     public abstract class Ship : MonoBehaviour

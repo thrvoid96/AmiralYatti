@@ -1,5 +1,7 @@
 using UnityEngine;
 
+//Script attached to Compartment gameobjects. Checks whether you can place or move a ship to a certain point or not.
+
 public class CheckPlacement : MonoBehaviour
 {
     [SerializeField] private Material GreenMat, RedMat;

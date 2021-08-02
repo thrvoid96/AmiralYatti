@@ -4,10 +4,10 @@ using UnityEngine;
 using System;
 using PlayerScripts;
 
-public class Player : PlayerBehaviours
-{
+//Script attached to the player. Controls the different states of what player can do.
 
-   
+public class Player : PlayerBehaviours
+{  
     private void Update()
     {
         _stateMachine.Tick();

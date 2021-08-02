@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+////Script attached to Grid gameobject. Spawns a grid to be used.
+
 public class GridSpawner : MonoBehaviour
 {
     public List<GameObject> ItemsToPickFrom;

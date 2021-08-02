@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using CompartmentScripts;
 using UnityEngine;
 
+//Script attached to Shell gameobject. Controls the behaviours of shell firing out of a GunCompartment.
+
 public class Shell : MonoBehaviour
 {
     private Player player;

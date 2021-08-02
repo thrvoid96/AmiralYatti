@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//Script attached to ShipSelectUI gameobject. Adds the type of ship when a button is selected.
 public class ShipSelectUI : MonoBehaviour
 {
     private Player _player;

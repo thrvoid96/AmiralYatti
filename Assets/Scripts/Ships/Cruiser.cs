@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using ShipScripts;
 
+//Script attached to Cruiser gameobject. Controls the behaviours of this type of a ship.
 public class Cruiser : Ship
 {
 

@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.AI;
 using System;
 
+//Not ideal potato class.
+
 namespace PlayerScripts
 {
     public abstract class PlayerBehaviours : MonoBehaviour

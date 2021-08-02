@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using CompartmentScripts;
 
+//Script attached to BowCompartment gameobject. Controls the behaviours of this compartment on a ship.
 public class SternCompartment : Compartment
 {
 
