@@ -23,6 +23,8 @@ public class ShipSelectUI : MonoBehaviour
             }
         }
 
+        ObjectPooler.instance.SetEntirePool("Grid", true);
+
         _player.shipToMove = allShips[0];
         _player.shipToMove.SetActive(true);
 

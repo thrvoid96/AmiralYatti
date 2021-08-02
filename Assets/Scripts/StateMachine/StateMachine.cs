@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 public class StateMachine
 {
@@ -18,6 +19,7 @@ public class StateMachine
             SetState(transition.To);
 
         _currentState?.Tick();
+        Debug.LogError(_currentState);
     }
 
     public void SetState(IState state)
@@ -26,7 +28,7 @@ public class StateMachine
             return;
 
         _currentState?.OnExit();
-        _currentState = state;
+        _currentState = state;       
 
         _transitions.TryGetValue(_currentState.GetType(), out _currentTransitions);
         if (_currentTransitions == null)

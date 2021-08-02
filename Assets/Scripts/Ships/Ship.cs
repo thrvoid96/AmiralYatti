@@ -20,6 +20,7 @@ namespace ShipScripts
         private int currentHealth;
 
         private Player player;
+        private NavMeshObstacle navMeshObstacle;
         private List<int> randomNumbers = new List<int>();
 
         public List<Compartment> compartments = new List<Compartment>();
@@ -28,7 +29,9 @@ namespace ShipScripts
         protected virtual void Awake()
         {
             player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+            navMeshObstacle = GetComponent<NavMeshObstacle>();
 
+            navMeshObstacle.carving = true;
 
             var list = gameObject.GetComponentsInChildren<Compartment>();
             GetComponent<NavMeshAgent>().enabled = false;

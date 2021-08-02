@@ -11,6 +11,7 @@ public class ShipMovementState : IState
     private Ship _ship;
     private LineRenderer _lineRenderer;
     private NavMeshAgent _navMeshAgent;
+    private NavMeshObstacle _navMeshObstacle;
 
     private RaycastHit hit;
     private Vector3 TouchPos;
@@ -25,7 +26,7 @@ public class ShipMovementState : IState
 
     public void OnEnter()
     {
-        _player.gridSpawner.setVisibility(false);
+        ObjectPooler.instance.SetEntirePool("Grid", false);
     }
 
     public void OnExit()
@@ -65,13 +66,17 @@ public class ShipMovementState : IState
         {
             if (Input.GetMouseButtonDown(2))
             {
-                _navMeshAgent = hit.collider.gameObject.GetComponent<NavMeshAgent>();
+                _navMeshObstacle = hit.collider.gameObject.GetComponent<NavMeshObstacle>();
+                _navMeshObstacle.enabled = false;
+
+                _navMeshAgent = hit.collider.gameObject.GetComponent<NavMeshAgent>();                
                 _navMeshAgent.enabled = true;
+
                 _ship = hit.collider.gameObject.GetComponent<Ship>();
                 _lineRenderer = hit.collider.gameObject.GetComponent<LineRenderer>();
 
                 _navMeshAgent.updateRotation=false;
-                _player.gridSpawner.setVisibility(true);
+                ObjectPooler.instance.SetEntirePool("Grid", true);
                 _player.movSpotObject.SetActive(true);
                 canMove = true;
               
@@ -129,6 +134,8 @@ public class ShipMovementState : IState
             {              
                 _ship.transform.rotation = Quaternion.Euler(_player.movSpotObject.transform.rotation.eulerAngles.x, _player.movSpotObject.transform.rotation.eulerAngles.y, _player.movSpotObject.transform.rotation.eulerAngles.z);
                 _player.movSpotObject.transform.rotation = Quaternion.Euler(0, 0, 0);
+                _navMeshObstacle.enabled = true;
+                _navMeshAgent.enabled = false;
                 _navMeshAgent = null;
             }
         }
@@ -208,8 +215,8 @@ public class ShipMovementState : IState
             int posX = (int)Mathf.Round(hit.point.x);
             int posZ = (int)Mathf.Round(hit.point.z);
 
-            _player.movSpotObject.transform.position = new Vector3(posX, 0, posZ);
-            _navMeshAgent.destination = new Vector3(_player.movSpotObject.transform.position.x, 0, _player.movSpotObject.transform.position.z);
+            _player.movSpotObject.transform.position = new Vector3(posX, 0.3f, posZ);
+            _navMeshAgent.destination = new Vector3(_player.movSpotObject.transform.position.x, 0.3f, _player.movSpotObject.transform.position.z);
             _navMeshAgent.speed = 0f;
             _navMeshAgent.updateRotation = false;
 
@@ -221,8 +228,8 @@ public class ShipMovementState : IState
                 _navMeshAgent.updateRotation = true;
                 _navMeshAgent.speed = _ship.speed;
 
-                _player.gridSpawner.setVisibility(false);
-               
+                ObjectPooler.instance.SetEntirePool("Grid", false);
+
                 _player.movSpotObject.SetActive(false);
 
                 canMove = false;

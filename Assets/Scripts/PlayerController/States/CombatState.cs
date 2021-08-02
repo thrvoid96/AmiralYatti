@@ -20,7 +20,7 @@ public class CombatState : IState
 
     public void OnEnter()
     {
-        _player.gridSpawner.setVisibility(false);
+        ObjectPooler.instance.SetEntirePool("Grid", false);
     }
 
     public void OnExit()
@@ -55,7 +55,7 @@ public class CombatState : IState
             {
                 _ship = hit.collider.gameObject.GetComponent<Ship>();
 
-                _player.gridSpawner.setVisibility(true);
+                ObjectPooler.instance.SetEntirePool("Grid", true);
                 _player.fireSpotObject.SetActive(true);
 
                 shipSelected = true;
@@ -75,20 +75,18 @@ public class CombatState : IState
             int posX = (int)Mathf.Round(hit.point.x);
             int posZ = (int)Mathf.Round(hit.point.z);
 
-            _player.fireSpotObject.transform.position = new Vector3(posX, 0.1f, posZ);
-                       
-            if (Physics.Raycast(ray, out hit, Mathf.Infinity, _player.shipMask))
+            _player.fireSpotObject.transform.position = new Vector3(posX, 0.3f, posZ);
+            
+            if (Input.GetMouseButtonDown(0))
             {
-                if (Input.GetMouseButtonDown(0))
-                {
-                    _player.gridSpawner.setVisibility(false);
-                    _player.fireSpotObject.SetActive(false);
-
-                    _ship.FireGunsRandomly(_player.fireSpotObject.transform.position);
-
-                    shipSelected = false;
-                }
+                ObjectPooler.instance.SetEntirePool("Grid", false);
+                _player.fireSpotObject.SetActive(false);
+                
+                _ship.FireGunsRandomly(_player.fireSpotObject.transform.position);
+                
+                shipSelected = false;
             }
+            
         }
     }
 

@@ -38,6 +38,7 @@ public class ShipPlacementState : IState
 
     public void OnExit()
     {
+
     }
 
     // Move ships around if mouse to screen raycast is hitting a Water layer
@@ -65,7 +66,7 @@ public class ShipPlacementState : IState
             _player.shipToPlace.transform.position = new Vector3(_player.shipToMove.transform.position.x, 0, _player.shipToMove.transform.position.z);
             _player.shipToMove.SetActive(false);
             _player.shipToPlace.SetActive(true);
-            _player.gridSpawner.setVisibility(false);
+            ObjectPooler.instance.SetEntirePool("Grid", false);
             shipPlaced = true;
         }
     }
@@ -86,7 +87,7 @@ public class ShipPlacementState : IState
                 _player.shipToMove.transform.position = new Vector3(_player.shipToPlace.transform.position.x, 1, _player.shipToPlace.transform.position.z);
                 _player.shipToMove.SetActive(true);
                 _player.shipToPlace.SetActive(false);
-                _player.gridSpawner.setVisibility(true);
+                ObjectPooler.instance.SetEntirePool("Grid", true);
                 shipPlaced = false;
 
             }

@@ -18,7 +18,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!4 &448480469036890360
 Transform:
@@ -95,11 +95,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c06f7455e96d07f43839aacf54eee52e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ItemsToPickFrom:
-  - {fileID: 778495690635585512, guid: 069e98db3d2a385459727241599b95c0, type: 3}
-  spawnedObjects: []
-  gridX: 20
-  gridZ: 30
+  gridSizeX: 20
+  gridSizeZ: 30
   gridSpacingOffset: 1
   gridOrigin: {x: -10, y: 0, z: -15}
 --- !u!64 &1644463706

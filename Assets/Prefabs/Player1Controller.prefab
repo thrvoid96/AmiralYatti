@@ -54,7 +54,6 @@ MonoBehaviour:
   shipToPlace: {fileID: 0}
   movSpotObject: {fileID: 2674792335850873454, guid: 116b8dbeb603fcc41ac63e1c3f8fb8d6, type: 3}
   fireSpotObject: {fileID: 778495690635585512, guid: 69e54852c27247c4791b5cc44276bbb6, type: 3}
-  shell: {fileID: 5818518139119912058, guid: 8955e386fd78c564cb60b286505b9b52, type: 3}
   ships:
   - {fileID: 7390957954225062542, guid: e21d43dfbee2c5a43a07f884c77a15ab, type: 3}
   - {fileID: 7390957954225062542, guid: 1819468873e7b01468b3fd4c9194626d, type: 3}

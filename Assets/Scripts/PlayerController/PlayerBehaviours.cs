@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.AI;
 using System;
 
-//Not ideal potato class.
+//Not ideal potato code.
 
 namespace PlayerScripts
 {
@@ -12,7 +12,6 @@ namespace PlayerScripts
     {
         protected StateMachine _stateMachine;
         protected LineRenderer lineRenderer;
-        protected Player player;
         protected NavMeshAgent navMeshAgent;
         public LayerMask waterMask, shipMask;
         public GridSpawner gridSpawner;
@@ -25,8 +24,6 @@ namespace PlayerScripts
 
         protected virtual void Awake()
         {
-            player = GetComponent<Player>();
-
             _stateMachine = new StateMachine();            
 
             InstantiateShips();
@@ -50,8 +47,8 @@ namespace PlayerScripts
 
         private void InstantiateDisplayer()
         {
-            movSpotObject = Instantiate(movSpotObject, new Vector3(0, 0, 0), Quaternion.identity);
-            var secondObj = Instantiate(movSpotObject, new Vector3(0, 0, 0), Quaternion.identity);
+            movSpotObject = Instantiate(movSpotObject, new Vector3(0, 0.3f, 0), Quaternion.identity);
+            var secondObj = Instantiate(movSpotObject, new Vector3(0, 0.3f, 0), Quaternion.identity);
 
             for (int i=1; i <= 3; i++)
             {
@@ -70,8 +67,8 @@ namespace PlayerScripts
 
         private void InstantiateFireSpots()
         {
-            fireSpotObject = Instantiate(fireSpotObject, new Vector3(0, 0.1f, 0), Quaternion.identity);
-            var secondObj = Instantiate(fireSpotObject, new Vector3(0, 0.1f, 0), Quaternion.identity);
+            fireSpotObject = Instantiate(fireSpotObject, new Vector3(0, 0.3f, 0), Quaternion.identity);
+            var secondObj = Instantiate(fireSpotObject, new Vector3(0, 0.3f, 0), Quaternion.identity);
 
             for (int i = 1; i >= -1; i--)
             {
