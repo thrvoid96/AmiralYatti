@@ -77,13 +77,10 @@ public class ShipMovementState : IState
 
                 _navMeshAgent.updateRotation=false;
                 ObjectPooler.instance.SetEntirePool("Grid", true);
-                _player.movSpotObject.SetActive(true);
+                _player.destinationObject.SetActive(true);
                 canMove = true;
-              
-                for(int i = 0; i < _ship.compartments.Count-1; i++)
-                {
-                    _player.moveSpotDisplayers[i].SetActive(true);
-                }
+
+                _player.adjustDestinationObject(_ship.compartments.Count, true, _ship.transform.rotation);
             }
         }
     }
@@ -92,7 +89,7 @@ public class ShipMovementState : IState
     {
         if (Input.GetKeyDown(KeyCode.R))
         {
-        _player.movSpotObject.transform.Rotate(0, 90, 0);
+        _player.destinationObject.transform.Rotate(0, 90, 0);
         }
         
     }
@@ -106,34 +103,14 @@ public class ShipMovementState : IState
             _navMeshAgent.updateRotation = false;
 
             //If the rotations are not close enough, keep rotating
-            if (Mathf.Abs(_ship.transform.rotation.eulerAngles.y - _player.movSpotObject.transform.rotation.eulerAngles.y) > 1f)
+            if (Mathf.Abs(_ship.transform.rotation.eulerAngles.y - _player.destinationObject.transform.rotation.eulerAngles.y) > 1f)
             {
-                //Case where the ship is looking up right
-                if (_ship.transform.rotation.eulerAngles.y <= 90)
-                {
-                    RotateCase90270(rotationSpeed);
-                }
-                //Case where the ship is looking down right
-                else if (_ship.transform.rotation.eulerAngles.y <= 180)
-                {
-                    RotateCase180360(rotationSpeed);
-                }
-                //Case where the ship is looking down left
-                else if (_ship.transform.rotation.eulerAngles.y <= 270)
-                {
-                    RotateCase90270(-rotationSpeed);
-                }
-                //Case where the ship is looking up left
-                else
-                {
-                    RotateCase180360(-rotationSpeed);
-                }
+                _ship.transform.Rotate(new Vector3(0, _player.destinationObject.transform.position.y, 0), rotationSpeed);
             }
             //If the ship has almost rotated completely, finish rotation
             else           
             {              
-                _ship.transform.rotation = Quaternion.Euler(_player.movSpotObject.transform.rotation.eulerAngles.x, _player.movSpotObject.transform.rotation.eulerAngles.y, _player.movSpotObject.transform.rotation.eulerAngles.z);
-                _player.movSpotObject.transform.rotation = Quaternion.Euler(0, 0, 0);
+                _ship.transform.rotation = _player.destinationObject.transform.rotation;                
                 _navMeshObstacle.enabled = true;
                 _navMeshAgent.enabled = false;
                 _navMeshAgent = null;
@@ -141,67 +118,6 @@ public class ShipMovementState : IState
         }
     }
 
-    private void RotateCase90270(float rotSpeed)
-    {
-        //Case where the final position is in up right
-        if (_player.movSpotObject.transform.rotation.eulerAngles.y <= 90)
-        {
-            sameAngleSpecialCase(rotSpeed, 0);
-        }
-        //Case where the final position is in down right
-        else if (_player.movSpotObject.transform.rotation.eulerAngles.y <= 180)
-        {
-            _ship.gameObject.transform.Rotate(0, rotSpeed, 0);
-        }
-        //Case where the final position is in down left
-        else if (_player.movSpotObject.transform.rotation.eulerAngles.y <= 270)
-        {
-
-            sameAngleSpecialCase(-rotSpeed, 180 * rotSpeed / Mathf.Abs(rotSpeed));
-        }
-        //Case where the final position is in up left
-        else
-        {
-            _ship.gameObject.transform.Rotate(0, -rotSpeed, 0);
-        }
-    }
-
-    private void RotateCase180360(float rotSpeed)
-    {
-        //Case where the final position is in up right
-        if (_player.movSpotObject.transform.rotation.eulerAngles.y <= 90)
-        {
-            _ship.gameObject.transform.Rotate(0, -rotSpeed, 0);
-        }
-        //Case where the final position is in down right
-        else if (_player.movSpotObject.transform.rotation.eulerAngles.y <= 180)
-        {
-            sameAngleSpecialCase(rotSpeed, 0);
-        }
-        //Case where the final position is in down left
-        else if (_player.movSpotObject.transform.rotation.eulerAngles.y <= 270)
-        {
-            _ship.gameObject.transform.Rotate(0, rotSpeed, 0);
-        }
-        //Case where the final position is in up left
-        else
-        {
-            sameAngleSpecialCase(-rotSpeed,180 * rotSpeed / Mathf.Abs(rotSpeed));
-        }
-    }
-
-    private void sameAngleSpecialCase(float rotSpd, float additive)
-    {
-        //Special fix where the ship and the final position rotation is in the same area
-        if (_player.movSpotObject.transform.rotation.eulerAngles.y < _ship.transform.rotation.eulerAngles.y + additive)
-        {
-            _ship.gameObject.transform.Rotate(0, -rotSpd, 0);
-        }
-        else
-        {
-            _ship.gameObject.transform.Rotate(0, rotSpd, 0);
-        }
-    }
 
     private void MoveToPosition()
     {
@@ -215,14 +131,15 @@ public class ShipMovementState : IState
             int posX = (int)Mathf.Round(hit.point.x);
             int posZ = (int)Mathf.Round(hit.point.z);
 
-            _player.movSpotObject.transform.position = new Vector3(posX, 0.3f, posZ);
-            _navMeshAgent.destination = new Vector3(_player.movSpotObject.transform.position.x, 0.3f, _player.movSpotObject.transform.position.z);
+            _player.destinationObject.transform.position = new Vector3(posX, 1f, posZ);
+            _navMeshAgent.destination = new Vector3(_player.destinationObject.transform.position.x, 0f, _player.destinationObject.transform.position.z);
+
             _navMeshAgent.speed = 0f;
             _navMeshAgent.updateRotation = false;
 
             DrawPath(_navMeshAgent.path);
 
-            if (Input.GetMouseButtonDown(1))
+            if (Input.GetMouseButtonDown(0))
             {
                 
                 _navMeshAgent.updateRotation = true;
@@ -230,14 +147,11 @@ public class ShipMovementState : IState
 
                 ObjectPooler.instance.SetEntirePool("Grid", false);
 
-                _player.movSpotObject.SetActive(false);
+                _player.destinationObject.SetActive(false);
 
                 canMove = false;
 
-                for (int i = 0; i < _ship.compartments.Count - 1; i++)
-                {
-                    _player.moveSpotDisplayers[i].SetActive(false);
-                }
+                _player.adjustDestinationObject(_ship.compartments.Count, false, _player.destinationObject.transform.rotation);
             }
         }
     }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using System;
+using System.Linq;
 
 //Not ideal potato code.
 
@@ -13,79 +14,54 @@ namespace PlayerScripts
         protected StateMachine _stateMachine;
         protected LineRenderer lineRenderer;
         protected NavMeshAgent navMeshAgent;
-        public LayerMask waterMask, shipMask;
-        public GridSpawner gridSpawner;
-        public GameObject shipToMove, shipToPlace, movSpotObject, fireSpotObject;
 
-        public List<GameObject> ships = new List<GameObject>();
-        public List<GameObject> moveSpotDisplayers = new List<GameObject>();
-        public List<GameObject> fireSpots = new List<GameObject>();
-        public List<GameObject> shipsOnScene = new List<GameObject>();
+        public LayerMask waterMask, shipMask;
+        public GameObject selectedShip, destinationObject, fireSpotObject;
+        private List<GameObject> destObjects = new List<GameObject>();
+        private List<GameObject> fireObjects = new List<GameObject>();
+
+
 
         protected virtual void Awake()
         {
-            _stateMachine = new StateMachine();            
+            _stateMachine = new StateMachine();
 
-            InstantiateShips();
-            InstantiateDisplayer();
-            InstantiateFireSpots();
+            getChildObjects(destinationObject, destObjects);
+            getChildObjects(fireSpotObject, fireObjects);
+
         }
 
-        private void InstantiateShips()
+        private void getChildObjects(GameObject obj, List<GameObject> list)
         {
-            for (int i = 0; i < ships.Count; i++)
+            foreach (Transform child in obj.transform)
             {
-                shipsOnScene.Add(Instantiate(ships[i], new Vector3(0, 0, 0), Quaternion.identity));
-                shipsOnScene.Add(Instantiate(ships[i], new Vector3(0, 0, 0), Quaternion.identity));
+                list.Add(child.gameObject);
             }
 
-            for (int i = 0; i < shipsOnScene.Count; i++)
+            for (int i = 0; i < list.Capacity - 1; i++)
             {
-                shipsOnScene[i].SetActive(false);
-            }
-        }
-
-        private void InstantiateDisplayer()
-        {
-            movSpotObject = Instantiate(movSpotObject, new Vector3(0, 0.3f, 0), Quaternion.identity);
-            var secondObj = Instantiate(movSpotObject, new Vector3(0, 0.3f, 0), Quaternion.identity);
-
-            for (int i=1; i <= 3; i++)
-            {
-                moveSpotDisplayers.Add(Instantiate(secondObj, new Vector3(movSpotObject.transform.position.x , movSpotObject.transform.position.y, movSpotObject.transform.position.z + i), Quaternion.identity, movSpotObject.transform));
-                moveSpotDisplayers.Add(Instantiate(secondObj, new Vector3(movSpotObject.transform.position.x , movSpotObject.transform.position.y, movSpotObject.transform.position.z - i), Quaternion.identity, movSpotObject.transform));
-            }
-
-            for (int i = 0; i < moveSpotDisplayers.Count; i++)
-            {
-                moveSpotDisplayers[i].transform.localScale = new Vector3(1, 1, 1);
-                moveSpotDisplayers[i].SetActive(false);
-            }
-
-            Destroy(secondObj);
-        }
-
-        private void InstantiateFireSpots()
-        {
-            fireSpotObject = Instantiate(fireSpotObject, new Vector3(0, 0.3f, 0), Quaternion.identity);
-            var secondObj = Instantiate(fireSpotObject, new Vector3(0, 0.3f, 0), Quaternion.identity);
-
-            for (int i = 1; i >= -1; i--)
-            {
-                for (int j = -1; j <= 1; j++)
+                try
                 {
-                    fireSpots.Add(Instantiate(secondObj, new Vector3(fireSpotObject.transform.position.x + j , fireSpotObject.transform.position.y, fireSpotObject.transform.position.z + i), Quaternion.identity, fireSpotObject.transform));
+                    if (!list[i].CompareTag("DestinationDisplayer") && !list[i].CompareTag("FireSpot"))
+                    {
+                        list.RemoveAt(i);
+                    }
+                }
+                catch
+                {
+                    Debug.LogError("Ýndex range");
                 }
             }
-
-            for (int i = 0; i < fireSpots.Count; i++)
-            {
-                fireSpots[i].transform.localScale = new Vector3(1, 1, 1);
-                fireSpots[i].SetActive(false);
-            }
-
-            Destroy(secondObj);
         }
+           
+        public void adjustDestinationObject(int compartmentCount,bool activity, Quaternion rotation)
+        {
+            destinationObject.transform.rotation = rotation;
 
+            for(int i=0; i<compartmentCount-1; i++)
+            {
+                destObjects[i].SetActive(activity);
+            }
+        }
     }
 }

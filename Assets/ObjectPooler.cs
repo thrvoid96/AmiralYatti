@@ -65,24 +65,6 @@ public class ObjectPooler : MonoBehaviour
         return objToSpawn;
     }
 
-    public GameObject DeSpawnFromPool(string tag, Vector3 position, Quaternion rotation)
-    {
-        if (!poolDictionary.ContainsKey(tag))
-        {
-            Debug.LogError("Pool with tag" + tag + "does not exist");
-            return null;
-        }
-
-        GameObject objToSpawn = poolDictionary[tag].Dequeue();
-        objToSpawn.SetActive(false);
-        objToSpawn.transform.position = position;
-        objToSpawn.transform.rotation = rotation;
-
-        poolDictionary[tag].Enqueue(objToSpawn);
-
-        return objToSpawn;
-    }
-
     public void SetEntirePool(string tag, bool value)
     {
         if (!poolDictionary.ContainsKey(tag))

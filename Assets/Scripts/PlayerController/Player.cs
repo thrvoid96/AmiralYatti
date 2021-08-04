@@ -23,7 +23,7 @@ public class Player : PlayerBehaviours
 
     private void Start()
     {
-        movSpotObject.SetActive(false);
+        destinationObject.SetActive(false);
         fireSpotObject.SetActive(false);
 
         var startTurn = new StartTurnState(this);

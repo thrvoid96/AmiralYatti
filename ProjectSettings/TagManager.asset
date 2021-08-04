@@ -10,6 +10,8 @@ TagManager:
   - Battleship
   - Cruiser
   - Destroyer
+  - FireSpot
+  - DestinationDisplayer
   layers:
   - Default
   - TransparentFX

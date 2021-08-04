@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: 8059864208073769336}
   - component: {fileID: 1636207584810237131}
   - component: {fileID: 4101516487911482317}
-  - component: {fileID: 3541451958724099623}
   - component: {fileID: 4917884731608356986}
+  - component: {fileID: 3541451958724099623}
   - component: {fileID: 8782531768638259965}
   m_Layer: 8
   m_Name: Destroyer
@@ -84,23 +84,6 @@ NavMeshObstacle:
   m_CarveOnlyStationary: 1
   m_Center: {x: 0, y: 0, z: 0}
   m_TimeToStationary: 0.5
---- !u!114 &3541451958724099623
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7390957954225062542}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d8b693eb0bcefe2458920bef3b8f8ab4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  shipType: 2
-  speed: 3.5
-  rotationSpeed: 0.5
-  maxHealth: 0
-  compartments: []
 --- !u!195 &4917884731608356986
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -123,6 +106,23 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &3541451958724099623
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7390957954225062542}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8b693eb0bcefe2458920bef3b8f8ab4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shipType: 2
+  speed: 3.5
+  rotationSpeed: 0.5
+  maxHealth: 0
+  compartments: []
 --- !u!120 &8782531768638259965
 LineRenderer:
   m_ObjectHideFlags: 0
@@ -308,7 +308,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6406658327747478955, guid: ac666810ae41d5d4c92cd1ce23508fe2, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 6406658327747478955, guid: ac666810ae41d5d4c92cd1ce23508fe2, type: 3}
       propertyPath: m_LocalRotation.w
@@ -370,7 +370,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8168480897902378400, guid: 1c929c54d29975247ab58ebb064e0d62, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8168480897902378400, guid: 1c929c54d29975247ab58ebb064e0d62, type: 3}
       propertyPath: m_LocalRotation.w
