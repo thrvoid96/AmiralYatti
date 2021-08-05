@@ -8,24 +8,17 @@ using PlayerScripts;
 
 public class Player : PlayerBehaviours
 {
-    private int state;
+    [NonSerialized] public int state;
+    [NonSerialized] public int shipsOnScene;
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Z))
-        {
-            state++;
-        }
-
         _stateMachine.Tick();
-      
     }
 
     private void Start()
     {
-        destinationObject.SetActive(false);
-        fireSpotObject.SetActive(false);
-
+        
         var startTurn = new StartTurnState(this);
         var shipPlacement = new ShipPlacementState(this);
         var shipMovement = new ShipMovementState(this, navMeshAgent, lineRenderer);

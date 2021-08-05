@@ -12,10 +12,12 @@ public class ShipMovementState : IState
     private LineRenderer _lineRenderer;
     private NavMeshAgent _navMeshAgent;
     private NavMeshObstacle _navMeshObstacle;
+    private int movedShipCount;
+    private bool moving;
 
     private RaycastHit hit;
     private Vector3 TouchPos;
-    private bool canMove;
+
 
     public ShipMovementState(Player player, NavMeshAgent navMeshAgent, LineRenderer lineRenderer)
     {
@@ -31,7 +33,9 @@ public class ShipMovementState : IState
 
     public void OnExit()
     {
-
+        UIManager.instance.changeDisplayText("Turn1", "Combat State");
+        UIManager.instance.animatedisplayUI(true,0f);
+        UIManager.instance.animatedisplayUI(false, 2f);
     }
 
     public void Tick()
@@ -42,7 +46,7 @@ public class ShipMovementState : IState
         }
         else
         {
-            if (canMove)
+            if (!moving)
             {
                 RotateMoveSpot();
                 MoveToPosition();
@@ -52,6 +56,7 @@ public class ShipMovementState : IState
                 DrawPath(_navMeshAgent.path);
                 RotateTowardsFinalPositionWhenCloseToDestination(_ship.rotationSpeed);
             }
+             
         }
     }
 
@@ -66,19 +71,27 @@ public class ShipMovementState : IState
         {
             if (Input.GetMouseButtonDown(2))
             {
+                _ship = hit.collider.gameObject.GetComponent<Ship>();
+
+                if (_ship.canMove == false)
+                {
+                    Debug.LogError("this ship has already moved!");
+                    _ship = null;
+                    return;
+                }
+
                 _navMeshObstacle = hit.collider.gameObject.GetComponent<NavMeshObstacle>();
                 _navMeshObstacle.enabled = false;
 
                 _navMeshAgent = hit.collider.gameObject.GetComponent<NavMeshAgent>();                
                 _navMeshAgent.enabled = true;
-
-                _ship = hit.collider.gameObject.GetComponent<Ship>();
+               
                 _lineRenderer = hit.collider.gameObject.GetComponent<LineRenderer>();
 
                 _navMeshAgent.updateRotation=false;
                 ObjectPooler.instance.SetEntirePool("Grid", true);
                 _player.destinationObject.SetActive(true);
-                canMove = true;
+ 
 
                 _player.adjustDestinationObject(_ship.compartments.Count, true, _ship.transform.rotation);
             }
@@ -110,10 +123,22 @@ public class ShipMovementState : IState
             //If the ship has almost rotated completely, finish rotation
             else           
             {              
-                _ship.transform.rotation = _player.destinationObject.transform.rotation;                
+                _ship.transform.rotation = _player.destinationObject.transform.rotation;
+
                 _navMeshObstacle.enabled = true;
                 _navMeshAgent.enabled = false;
                 _navMeshAgent = null;
+
+                movedShipCount++;
+                _ship.canMove = false;
+                _ship = null;
+
+                moving = false;
+
+                if (movedShipCount == 3)
+                {
+                    _player.state++;
+                }
             }
         }
     }
@@ -149,9 +174,9 @@ public class ShipMovementState : IState
 
                 _player.destinationObject.SetActive(false);
 
-                canMove = false;
-
                 _player.adjustDestinationObject(_ship.compartments.Count, false, _player.destinationObject.transform.rotation);
+
+                moving = true;
             }
         }
     }

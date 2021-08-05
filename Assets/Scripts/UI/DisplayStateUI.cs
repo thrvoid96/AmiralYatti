@@ -1,0 +1,19 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using TMPro;
+
+public class DisplayStateUI : MonoBehaviour
+{
+    public Animator animator;
+    [SerializeField] private TextMeshProUGUI turnTextBox;
+    [SerializeField] private TextMeshProUGUI stateTextBox;
+
+
+    public void changeTexts(string turnTxt, string stateTxt)
+    {
+        turnTextBox.text = turnTxt;
+        stateTextBox.text = stateTxt;
+    }
+
+}

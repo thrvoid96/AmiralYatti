@@ -6,7 +6,6 @@ using UnityEngine;
 public class ShipPlacementState : IState
 {   
     private RaycastHit hit;
-    private bool shipPlaced;
 
     private Player _player;
 
@@ -20,17 +19,15 @@ public class ShipPlacementState : IState
         //If the selected ship is not placed, you can move the ship around and try to place it. When placed, you can reclick ship to replace it.
         if(_player.selectedShip == null)
         {
-            GetShip();
-        }
-        else if (!shipPlaced)
-        {
-            MoveObjectOnWater(_player.selectedShip);
-            RotateShip();
-            PlaceShip();
+            UIManager.instance.animateSpawnShipUI(true,0f);
+            ReplaceShip();
         }
         else
         {
-            ReplaceShip();
+            UIManager.instance.animateSpawnShipUI(false,0f);
+            MoveObjectOnWater(_player.selectedShip);
+            RotateShip();
+            PlaceShip();
         }
     }
 
@@ -41,27 +38,9 @@ public class ShipPlacementState : IState
 
     public void OnExit()
     {
-
-    }
-
-    private void GetShip()
-    {
-        var TouchPos = Input.mousePosition;
-
-
-        Ray ray = Camera.main.ScreenPointToRay(TouchPos);
-
-        if (Physics.Raycast(ray, out hit, Mathf.Infinity, _player.shipMask))
-        {
-            int posX = (int)Mathf.Round(hit.point.x);
-            int posZ = (int)Mathf.Round(hit.point.z);
-
-            if (Input.GetMouseButtonDown(2))
-            {
-                _player.selectedShip = hit.collider.gameObject;
-            }
-            
-        }
+        UIManager.instance.changeDisplayText("Turn1", "Movement State");
+        UIManager.instance.animatedisplayUI(true,0f);
+        UIManager.instance.animatedisplayUI(false, 2f);
     }
 
     private void RotateShip()
@@ -93,11 +72,20 @@ public class ShipPlacementState : IState
     // Place ship if right click. Make placement grid invisible
     private void PlaceShip()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(1))
         {          
             _player.selectedShip.transform.position = new Vector3(_player.selectedShip.transform.position.x, 0.1f, _player.selectedShip.transform.position.z);
             ObjectPooler.instance.SetEntirePool("Grid", false);
-            shipPlaced = true;
+
+            if (_player.shipsOnScene < 3)
+            {
+                _player.selectedShip = null;
+            }
+            else
+            {
+                _player.state++;
+            }
+                       
         }
     }
 
@@ -117,8 +105,6 @@ public class ShipPlacementState : IState
                 _player.selectedShip = hit.collider.gameObject;
                 _player.selectedShip.transform.position = new Vector3(_player.selectedShip.transform.position.x, 1, _player.selectedShip.transform.position.z);
                 ObjectPooler.instance.SetEntirePool("Grid", true);
-                shipPlaced = false;
-
             }
         }
     }

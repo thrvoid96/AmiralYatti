@@ -5,25 +5,32 @@ using UnityEngine;
 //Script attached to ShipSelectUI gameobject. Adds the type of ship when a button is selected.
 public class SpawnShipUI : MonoBehaviour
 {
-    private Player _player;
-    private List<GameObject> allShips = new List<GameObject>();
-
-    private void Start()
-    {
-        _player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
-    }
+    public Animator animator;
 
     public void SpawnShip(string tag)
     {
-        if (GameObject.FindGameObjectWithTag(tag) == null)
+        if (UIManager.instance.checkShipCountOnScene()<3)
         {
-            ObjectPooler.instance.SetEntirePool("Grid", true);
-            ObjectPooler.instance.SpawnFromPool(tag, new Vector3(0, 0, 0), Quaternion.identity);
+            if (GameObject.FindGameObjectWithTag(tag) == null)
+            {
+                ObjectPooler.instance.SetEntirePool("Grid", true);
+                var obj = ObjectPooler.instance.SpawnFromPool(tag, new Vector3(0, 0, 0), Quaternion.identity);
+
+                UIManager.instance.setSelectedShip(obj);
+                UIManager.instance.addShipCountOnScene();
+
+                if(UIManager.instance.checkShipCountOnScene() == 3)
+                {
+                    Debug.LogError("You have placed maximum amount of ships!");
+                }
+
+            }
+            else
+            {
+                Debug.LogError("You have already spawned that type of ship!");
+            }
         }
-        else
-        {
-            Debug.LogError("You have already spawned that type of ship!");
-        }
+
     }
 
 }
