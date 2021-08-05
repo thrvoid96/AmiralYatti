@@ -1733,6 +1733,7 @@ MonoBehaviour:
   shipType: 0
   speed: 3.5
   rotationSpeed: 0.5
+  canMove: 1
   maxHealth: 0
   compartments: []
 --- !u!1 &7460557864885725413

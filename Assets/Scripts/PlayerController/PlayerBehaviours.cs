@@ -29,6 +29,9 @@ namespace PlayerScripts
             getChildObjects(destinationObject, destObjects);
             getChildObjects(fireSpotObject, fireObjects);
 
+            destinationObject.SetActive(false);
+            fireSpotObject.SetActive(false);
+
         }
 
         private void getChildObjects(GameObject obj, List<GameObject> list)

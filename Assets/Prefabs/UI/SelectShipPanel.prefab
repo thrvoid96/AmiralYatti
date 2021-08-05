@@ -148,6 +148,7 @@ GameObject:
   - component: {fileID: 2034997563869736378}
   - component: {fileID: 6215291099078545824}
   - component: {fileID: 6215291099078545855}
+  - component: {fileID: 7565803352611378751}
   m_Layer: 5
   m_Name: SelectShipPanel
   m_TagString: Untagged
@@ -188,6 +189,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d60dad9d11b8f1f46a0b1196056aee21, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animator: {fileID: 7565803352611378751}
 --- !u!222 &6215291099078545824
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -226,6 +228,25 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!95 &7565803352611378751
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6215291099078545853}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 8691dedb1ea2f874dbf8cc498da24641, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &6215291099352164999
 GameObject:
   m_ObjectHideFlags: 0
@@ -254,7 +275,7 @@ RectTransform:
   m_GameObject: {fileID: 6215291099352164999}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.2424, y: 1.2424, z: 1.2424}
   m_Children:
   - {fileID: 6215291098967872633}
   m_Father: {fileID: 6215291099922315995}
@@ -589,10 +610,10 @@ MonoBehaviour:
   m_Padding:
     m_Left: 0
     m_Right: 0
-    m_Top: 0
+    m_Top: 80
     m_Bottom: 0
   m_ChildAlignment: 4
-  m_Spacing: 0
+  m_Spacing: 100
   m_ChildForceExpandWidth: 1
   m_ChildForceExpandHeight: 1
   m_ChildControlWidth: 0
@@ -628,7 +649,7 @@ RectTransform:
   m_GameObject: {fileID: 6215291099982003517}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.2424, y: 1.2424, z: 1.2424}
   m_Children:
   - {fileID: 6215291100076150491}
   m_Father: {fileID: 6215291099922315995}
@@ -903,8 +924,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0.221}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 14.32498, y: 196.4596}
-  m_SizeDelta: {x: 1756.6, y: 55.094}
+  m_AnchoredPosition: {x: 14.32498, y: 209}
+  m_SizeDelta: {x: 1756.6, y: 89.033}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6215291100708823885
 CanvasRenderer:
@@ -961,8 +982,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 48
-  m_fontSizeBase: 48
+  m_fontSize: 90
+  m_fontSizeBase: 90
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -1031,7 +1052,7 @@ RectTransform:
   m_GameObject: {fileID: 6215291100785894634}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.2424, y: 1.2424, z: 1.2424}
   m_Children:
   - {fileID: 6215291099511420339}
   m_Father: {fileID: 6215291099922315995}
