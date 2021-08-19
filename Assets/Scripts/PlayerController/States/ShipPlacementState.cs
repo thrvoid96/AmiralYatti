@@ -8,10 +8,12 @@ public class ShipPlacementState : IState
     private RaycastHit hit;
 
     private Player _player;
+    private UIManager _uIManager;
 
-    public ShipPlacementState(Player player)
+    public ShipPlacementState(Player player, UIManager uIManager)
     {
         _player = player;
+        _uIManager = uIManager;
     }
   
     public void Tick()
@@ -19,12 +21,12 @@ public class ShipPlacementState : IState
         //If the selected ship is not placed, you can move the ship around and try to place it. When placed, you can reclick ship to replace it.
         if(_player.selectedShip == null)
         {
-            UIManager.instance.animateSpawnShipUI(true,0f);
+            _uIManager.animateSpawnShipUI(true,0f);
             ReplaceShip();
         }
         else
         {
-            UIManager.instance.animateSpawnShipUI(false,0f);
+            _uIManager.animateSpawnShipUI(false,0f);
             MoveObjectOnWater(_player.selectedShip);
             RotateShip();
             PlaceShip();
@@ -38,9 +40,9 @@ public class ShipPlacementState : IState
 
     public void OnExit()
     {
-        UIManager.instance.changeDisplayText("Turn1", "Movement State");
-        UIManager.instance.animatedisplayUI(true,0f);
-        UIManager.instance.animatedisplayUI(false, 2f);
+        _uIManager.changeDisplayText("Turn 1", "Movement$State");
+        _uIManager.animatedisplayUI(true, 0f);
+        _uIManager.animatedisplayUI(false, 2f);
     }
 
     private void RotateShip()

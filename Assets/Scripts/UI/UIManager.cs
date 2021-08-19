@@ -8,17 +8,6 @@ public class UIManager : MonoBehaviour
     [SerializeField] private DisplayStateUI displayStateUI;
     [SerializeField] private Player player;
 
-    #region Singleton
-
-    public static UIManager instance;
-
-    private void Awake()
-    {
-        instance = this;
-    }
-
-    #endregion
-
     public void changePlayerState()
     {
         player.state++;
@@ -47,12 +36,12 @@ public class UIManager : MonoBehaviour
 
     public void animateSpawnShipUI(bool value, float delay)
     {       
-        StartCoroutine(setDelay(value,delay,1));
+        StartCoroutine(setDelay(value, delay, 1));
     }
 
     public void animatedisplayUI(bool value, float delay)
     {        
-        StartCoroutine(setDelay(value,delay,2));
+        StartCoroutine(setDelay(value, delay, 2));
     }
 
     private IEnumerator setDelay(bool value,float time,int swap)
@@ -66,7 +55,6 @@ public class UIManager : MonoBehaviour
             case 2:
                 displayStateUI.animator.SetBool("isOpen", value);
                 break;
-
         }             
     }
 

@@ -12,6 +12,8 @@ public class DisplayStateUI : MonoBehaviour
 
     public void changeTexts(string turnTxt, string stateTxt)
     {
+        turnTxt = turnTxt.Replace('$', '\n');
+        stateTxt = stateTxt.Replace('$', '\n');
         turnTextBox.text = turnTxt;
         stateTextBox.text = stateTxt;
     }

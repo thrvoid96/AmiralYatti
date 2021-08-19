@@ -6,28 +6,33 @@ using UnityEngine;
 public class SpawnShipUI : MonoBehaviour
 {
     public Animator animator;
+    [SerializeField] private UIManager uIManager;
 
     public void SpawnShip(string tag)
     {
-        if (UIManager.instance.checkShipCountOnScene()<3)
+        if (uIManager.checkShipCountOnScene()<3)
         {
             if (GameObject.FindGameObjectWithTag(tag) == null)
             {
                 ObjectPooler.instance.SetEntirePool("Grid", true);
                 var obj = ObjectPooler.instance.SpawnFromPool(tag, new Vector3(0, 0, 0), Quaternion.identity);
 
-                UIManager.instance.setSelectedShip(obj);
-                UIManager.instance.addShipCountOnScene();
+                uIManager.setSelectedShip(obj);
+                uIManager.addShipCountOnScene();
 
-                if(UIManager.instance.checkShipCountOnScene() == 3)
+                if(uIManager.checkShipCountOnScene() == 3)
                 {
-                    Debug.LogError("You have placed maximum amount of ships!");
+                    uIManager.changeDisplayText("Warning!", "You have placed maximum amount of ships!");
+                    uIManager.animatedisplayUI(true, 0f);
+                    uIManager.animatedisplayUI(false, 2f);
                 }
 
             }
             else
             {
-                Debug.LogError("You have already spawned that type of ship!");
+                uIManager.changeDisplayText("Warning!", "You have already spawned that type of ship!");
+                uIManager.animatedisplayUI(true, 0f);
+                uIManager.animatedisplayUI(false, 2f);
             }
         }
 

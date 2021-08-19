@@ -9,6 +9,7 @@ public class ShipMovementState : IState
 {
     private Player _player;
     private Ship _ship;
+    private UIManager _uIManager;
     private LineRenderer _lineRenderer;
     private NavMeshAgent _navMeshAgent;
     private NavMeshObstacle _navMeshObstacle;
@@ -19,9 +20,10 @@ public class ShipMovementState : IState
     private Vector3 TouchPos;
 
 
-    public ShipMovementState(Player player, NavMeshAgent navMeshAgent, LineRenderer lineRenderer)
+    public ShipMovementState(Player player, NavMeshAgent navMeshAgent, LineRenderer lineRenderer, UIManager uIManager)
     {
         _player = player;
+        _uIManager = uIManager;
         _navMeshAgent = navMeshAgent;
         _lineRenderer = lineRenderer;
     }
@@ -33,9 +35,9 @@ public class ShipMovementState : IState
 
     public void OnExit()
     {
-        UIManager.instance.changeDisplayText("Turn1", "Combat State");
-        UIManager.instance.animatedisplayUI(true,0f);
-        UIManager.instance.animatedisplayUI(false, 2f);
+        _uIManager.changeDisplayText("Turn 1", "Combat$State");
+        _uIManager.animatedisplayUI(true, 0f);
+        _uIManager.animatedisplayUI(false, 2f);
     }
 
     public void Tick()

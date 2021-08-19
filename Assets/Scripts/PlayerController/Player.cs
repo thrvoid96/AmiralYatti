@@ -19,9 +19,9 @@ public class Player : PlayerBehaviours
     private void Start()
     {
         
-        var startTurn = new StartTurnState(this);
-        var shipPlacement = new ShipPlacementState(this);
-        var shipMovement = new ShipMovementState(this, navMeshAgent, lineRenderer);
+        var startTurn = new StartTurnState(this, uIManager);
+        var shipPlacement = new ShipPlacementState(this, uIManager);
+        var shipMovement = new ShipMovementState(this, navMeshAgent, lineRenderer, uIManager);
         var combat = new CombatState(this);
         var endTurn = new EndTurnState(this);
 

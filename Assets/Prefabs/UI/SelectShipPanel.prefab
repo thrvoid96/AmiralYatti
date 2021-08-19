@@ -190,6 +190,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 7565803352611378751}
+  uIManager: {fileID: 0}
 --- !u!222 &6215291099078545824
 CanvasRenderer:
   m_ObjectHideFlags: 0

@@ -43,6 +43,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 97964d8a3f274b04088a601c74d15ee9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  uIManager: {fileID: 0}
   waterMask:
     serializedVersion: 2
     m_Bits: 16

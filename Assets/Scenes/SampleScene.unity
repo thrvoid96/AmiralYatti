@@ -691,10 +691,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: BattleShip
       objectReference: {fileID: 0}
-    - target: {fileID: 7390957954225062542, guid: e21d43dfbee2c5a43a07f884c77a15ab, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 7390957954225062543, guid: e21d43dfbee2c5a43a07f884c77a15ab, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -807,6 +803,17 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2033086546 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2186283140709987935, guid: 6659df9aa566eec449d3bc4d2407801b, type: 3}
+  m_PrefabInstance: {fileID: 2763921859348672696}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db2861ca2614c39418b162c6352a56ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1959458888266716535
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -871,6 +878,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1451804420}
     m_Modifications:
+    - target: {fileID: 902700364912155102, guid: 6659df9aa566eec449d3bc4d2407801b, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: -809.1964
+      objectReference: {fileID: 0}
+    - target: {fileID: 902700364912155102, guid: 6659df9aa566eec449d3bc4d2407801b, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: -2427.0493
+      objectReference: {fileID: 0}
+    - target: {fileID: 902700364912155102, guid: 6659df9aa566eec449d3bc4d2407801b, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 171.01862
+      objectReference: {fileID: 0}
     - target: {fileID: 2186283140709987935, guid: 6659df9aa566eec449d3bc4d2407801b, type: 3}
       propertyPath: player
       value: 
@@ -922,10 +941,6 @@ PrefabInstance:
     - target: {fileID: 2763921861135081056, guid: 6659df9aa566eec449d3bc4d2407801b, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3360760166556486616, guid: 6659df9aa566eec449d3bc4d2407801b, type: 3}
-      propertyPath: m_fontColor32.rgba
-      value: 1409286399
       objectReference: {fileID: 0}
     - target: {fileID: 4860710832960952877, guid: 6659df9aa566eec449d3bc4d2407801b, type: 3}
       propertyPath: m_Pivot.x
@@ -1011,17 +1026,33 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7125151170317717620, guid: 6659df9aa566eec449d3bc4d2407801b, type: 3}
-      propertyPath: m_fontColor.a
-      value: 1
+    - target: {fileID: 5132037276418196817, guid: 6659df9aa566eec449d3bc4d2407801b, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 264
       objectReference: {fileID: 0}
     - target: {fileID: 7125151170317717620, guid: 6659df9aa566eec449d3bc4d2407801b, type: 3}
-      propertyPath: m_fontColor32.rgba
-      value: 1409349375
+      propertyPath: m_text
+      value: Placement State
       objectReference: {fileID: 0}
     - target: {fileID: 7471354594289841521, guid: 6659df9aa566eec449d3bc4d2407801b, type: 3}
       propertyPath: m_Name
       value: UIManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 8069223047236950711, guid: 6659df9aa566eec449d3bc4d2407801b, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 858.075
+      objectReference: {fileID: 0}
+    - target: {fileID: 8069223047236950711, guid: 6659df9aa566eec449d3bc4d2407801b, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 458.8196
+      objectReference: {fileID: 0}
+    - target: {fileID: 8069223047236950711, guid: 6659df9aa566eec449d3bc4d2407801b, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 6.3193
+      objectReference: {fileID: 0}
+    - target: {fileID: 8069223047236950711, guid: 6659df9aa566eec449d3bc4d2407801b, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -160.0817
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6659df9aa566eec449d3bc4d2407801b, type: 3}
@@ -1094,6 +1125,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 242961552, guid: f6da6075c94544e478aaada17ae4dd70, type: 3}
+      propertyPath: uIManager
+      value: 
+      objectReference: {fileID: 2033086546}
     - target: {fileID: 242961552, guid: f6da6075c94544e478aaada17ae4dd70, type: 3}
       propertyPath: fireSpotObject
       value: 

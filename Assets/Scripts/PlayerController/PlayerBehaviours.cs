@@ -15,6 +15,8 @@ namespace PlayerScripts
         protected LineRenderer lineRenderer;
         protected NavMeshAgent navMeshAgent;
 
+        [SerializeField] protected UIManager uIManager;
+
         public LayerMask waterMask, shipMask;
         public GameObject selectedShip, destinationObject, fireSpotObject;
         private List<GameObject> destObjects = new List<GameObject>();
