@@ -118,7 +118,26 @@ public class ShipMovementState : IState
             //If the rotations are not close enough, keep rotating
             if (Mathf.Abs(_ship.transform.rotation.eulerAngles.y - _player.destinationObject.transform.rotation.eulerAngles.y) > 1f)
             {
-                _ship.transform.Rotate(new Vector3(0, _player.destinationObject.transform.position.y, 0), rotationSpeed);
+                //Case where the ship is looking up right
+                if (_ship.transform.rotation.eulerAngles.y <= 90)
+                {
+                    RotateCase90270(rotationSpeed);
+                }
+                //Case where the ship is looking down right
+                else if (_ship.transform.rotation.eulerAngles.y <= 180)
+                {
+                    RotateCase180360(rotationSpeed);
+                }
+                //Case where the ship is looking down left
+                else if (_ship.transform.rotation.eulerAngles.y <= 270)
+                {
+                    RotateCase90270(-rotationSpeed);
+                }
+                //Case where the ship is looking up left
+                else
+                {
+                    RotateCase180360(-rotationSpeed);
+                }
             }
             //If the ship has almost rotated completely, finish rotation
             else           
@@ -143,6 +162,67 @@ public class ShipMovementState : IState
         }
     }
 
+    private void RotateCase90270(float rotSpeed)
+    {
+        //Case where the final position is in up right
+        if (_player.destinationObject.transform.rotation.eulerAngles.y <= 90)
+        {
+            sameAngleSpecialCase(rotSpeed, 0);
+        }
+        //Case where the final position is in down right
+        else if (_player.destinationObject.transform.rotation.eulerAngles.y <= 180)
+        {
+            _ship.gameObject.transform.Rotate(0, rotSpeed, 0);
+        }
+        //Case where the final position is in down left
+        else if (_player.destinationObject.transform.rotation.eulerAngles.y <= 270)
+        {
+
+            sameAngleSpecialCase(-rotSpeed, 180 * rotSpeed / Mathf.Abs(rotSpeed));
+        }
+        //Case where the final position is in up left
+        else
+        {
+            _ship.gameObject.transform.Rotate(0, -rotSpeed, 0);
+        }
+    }
+
+    private void RotateCase180360(float rotSpeed)
+    {
+        //Case where the final position is in up right
+        if (_player.destinationObject.transform.rotation.eulerAngles.y <= 90)
+        {
+            _ship.gameObject.transform.Rotate(0, -rotSpeed, 0);
+        }
+        //Case where the final position is in down right
+        else if (_player.destinationObject.transform.rotation.eulerAngles.y <= 180)
+        {
+            sameAngleSpecialCase(rotSpeed, 0);
+        }
+        //Case where the final position is in down left
+        else if (_player.destinationObject.transform.rotation.eulerAngles.y <= 270)
+        {
+            _ship.gameObject.transform.Rotate(0, rotSpeed, 0);
+        }
+        //Case where the final position is in up left
+        else
+        {
+            sameAngleSpecialCase(-rotSpeed, 180 * rotSpeed / Mathf.Abs(rotSpeed));
+        }
+    }
+
+    private void sameAngleSpecialCase(float rotSpd, float additive)
+    {
+        //Special fix where the ship and the final position rotation is in the same area
+        if (_player.destinationObject.transform.rotation.eulerAngles.y < _ship.transform.rotation.eulerAngles.y + additive)
+        {
+            _ship.gameObject.transform.Rotate(0, -rotSpd, 0);
+        }
+        else
+        {
+            _ship.gameObject.transform.Rotate(0, rotSpd, 0);
+        }
+    }
 
     private void MoveToPosition()
     {
